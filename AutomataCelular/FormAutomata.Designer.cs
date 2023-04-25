@@ -75,7 +75,6 @@
             resources.ApplyResources(this.pbAutomata, "pbAutomata");
             this.pbAutomata.Name = "pbAutomata";
             this.pbAutomata.TabStop = false;
-            this.pbAutomata.Click += new System.EventHandler(this.pbAutomata_Click);
             // 
             // timerAutomata
             // 

@@ -1,11 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System;
 
 namespace AutomataCelular
 {
@@ -32,8 +25,6 @@ namespace AutomataCelular
         {
             Persona[][] response;
 
-            //var strJson = JsonConvert.SerializeObject(_objPersonas);
-            //_clonObjPersonas = JsonConvert.DeserializeObject<Persona[,]>(strJson);
             _clonObjPersonas = GetClonObject(_objPersonas);
 
             for (int x = 0; x < _longitud; x++)
@@ -61,19 +52,6 @@ namespace AutomataCelular
 
             return arrayClonado;
         }
-
-        //public int ProcessRegla(string nombreRegla, int x, int y, bool estaViva)
-        //{
-        //    switch (nombreRegla)
-        //    {
-        //        case "Juego de la vida":
-        //            return ReglaJuegoVida(x, y, estaViva);
-        //        case "Personalizado_Daniel":
-        //            return ReglaDaniel(x, y, estaViva);
-        //        default:
-        //            return ReglaJuegoVida(x, y, estaViva);
-        //    }
-        //}
 
         private int AnalizarVecinasPorEstado(int x, int y, EnumEstado prmEstado)
         {
@@ -147,78 +125,6 @@ namespace AutomataCelular
             return contadorPorEstado;
         }
 
-        private int AnalizarVecinasPorEstadoIni(int x, int y, EnumEstado prmEstado)
-        {
-            int contadorPorEstado = 0;
-
-            //vecina 1
-            if (x > 0 && y > 0)
-            {
-                int ejeX = x - 1, ejeY = y - 1;
-                if (_arrayPersonas[ejeX, ejeY] == 1 && _objPersonas[ejeX, ejeY].Estado == prmEstado)
-                    contadorPorEstado++;
-            }
-
-            //vecina 2
-            if (y > 0)
-            {
-                int ejeX = x, ejeY = y - 1;
-                if (_arrayPersonas[x, y - 1] == 1 && _objPersonas[ejeX, ejeY].Estado == prmEstado)
-                    contadorPorEstado++;
-            }
-
-            //vecina 3
-            if (x < _longitud - 1 && y > 0)
-            {
-                int ejeX = x + 1, ejeY = y - 1;
-                if (_arrayPersonas[x + 1, y - 1] == 1 && _objPersonas[ejeX, ejeY].Estado == prmEstado)
-                    contadorPorEstado++;
-            }
-
-            //vecina 4
-            if (x > 0)
-            {
-                int ejeX = x - 1, ejeY = y;
-                if (_arrayPersonas[x - 1, y] == 1 && _objPersonas[ejeX, ejeY].Estado == prmEstado)
-                    contadorPorEstado++;
-            }
-
-            //vecina 5
-            if (x < _longitud - 1)
-            {
-                int ejeX = x + 1, ejeY = y;
-                if (_arrayPersonas[x + 1, y] == 1 && _objPersonas[ejeX, ejeY].Estado == prmEstado)
-                    contadorPorEstado++;
-            }
-
-            //vecina 6
-            if (x > 0 && y < _longitud - 1)
-            {
-                int ejeX = x - 1, ejeY = y + 1;
-                if (_arrayPersonas[x - 1, y + 1] == 1 && _objPersonas[ejeX, ejeY].Estado == prmEstado)
-                    contadorPorEstado++;
-            }
-
-            //vecina 7
-            if (y < _longitud - 1)
-            {
-                int ejeX = x, ejeY = y + 1;
-                if (_arrayPersonas[x, y + 1] == 1 && _objPersonas[ejeX, ejeY].Estado == prmEstado)
-                    contadorPorEstado++;
-            }
-
-
-            //vecina 8
-            if (x < _longitud - 1 && y < _longitud - 1)
-            {
-                int ejeX = x + 1, ejeY = y + 1;
-                if (_arrayPersonas[x + 1, y + 1] == 1 && _objPersonas[ejeX, ejeY].Estado == prmEstado)
-                    contadorPorEstado++;
-            }
-
-            return contadorPorEstado;
-        }
-
         private void ReglaEvolucion(int x, int y)
         {
             EnumEstado newStatus;
@@ -227,7 +133,6 @@ namespace AutomataCelular
             {
                 if (_objPersonas[x, y].Estado == EnumEstado.CONTAGIADO)
                 {
-                    //_objPersonas[x, y].NumDiasContagiado++;
                     _clonObjPersonas[x, y].NumDiasContagiado++;
                     newStatus = _objPersonas[x, y].Estado;
                     var randomUCI = _random.Next(0, 100);
@@ -292,13 +197,14 @@ namespace AutomataCelular
                         newStatus = EnumEstado.CONTAGIADO;
                     else
                         newStatus = EnumEstado.SANO;
+
+                    // FALTA CONFIGURAR LAS DEMAS REGLAS
                 }
             }
             else
                 newStatus = EnumEstado.INMUNE;
 
             _clonObjPersonas[x, y].Estado = newStatus;
-            //_objPersonas[x, y].Estado = newStatus;
         }
     }
 }

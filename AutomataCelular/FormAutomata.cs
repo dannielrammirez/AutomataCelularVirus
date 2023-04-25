@@ -13,7 +13,6 @@ namespace AutomataCelular
 
         public int longitud = 0;
         public int countDias = 0;
-        //private int longitudPixel = 4;
         private int longitudPixel = 0;
         private double factorMultiplicador;
         public int[,] arrayPersonas;
@@ -35,14 +34,10 @@ namespace AutomataCelular
             InitializeComponent();
             if (instance == null) instance = this;
             _objAutomata = new Automata();
-
-            //inicializamos
-            //celulas = new int[longitud, longitud];
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //PintarMatriz();
         }
 
         private void ReiniciarRejilla()
@@ -60,25 +55,6 @@ namespace AutomataCelular
         private void timerAutomata_Tick(object sender, EventArgs e)
         {
             ProcessEvoluciuon();
-        }
-
-        private void pbAutomata_Click(object sender, EventArgs e)
-        {
-            Point relativePoint = pbAutomata.PointToClient(Cursor.Position);
-
-            try
-            {
-                int ejeX = relativePoint.X / longitudPixel;// - relativePoint.X * longitudPixel;
-                int ejeY = relativePoint.Y / longitudPixel;// - relativePoint.Y * longitudPixel;
-
-                //celulas[ejeX, ejeY] = 1;
-
-                PintarMatriz();
-            }
-            catch (Exception ex)
-            {
-
-            }
         }
 
         private bool ValidarInformacionInicial()
