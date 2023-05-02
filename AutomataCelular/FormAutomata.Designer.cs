@@ -33,6 +33,12 @@
             this.pbAutomata = new System.Windows.Forms.PictureBox();
             this.timerAutomata = new System.Windows.Forms.Timer(this.components);
             this.plGeneral = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.tbInfeccionesNecesarias = new System.Windows.Forms.TextBox();
+            this.btnResumenEvolucion = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tbDiasEvolucionVirus = new System.Windows.Forms.TextBox();
+            this.cbTamPixel = new System.Windows.Forms.ComboBox();
             this.btnAvanzar = new System.Windows.Forms.Button();
             this.lblDia = new System.Windows.Forms.Label();
             this.btnPausarSimulacion = new System.Windows.Forms.Button();
@@ -56,15 +62,12 @@
             this.tbPorInmunesIniciales = new System.Windows.Forms.TextBox();
             this.tbPorFallecidosIniciales = new System.Windows.Forms.TextBox();
             this.tbPorUCIIniciales = new System.Windows.Forms.TextBox();
-            this.tbNumDiasHospitalizacion = new System.Windows.Forms.TextBox();
+            this.tbProbabilidadHospitalizacion = new System.Windows.Forms.TextBox();
             this.tbProbabilidadMorir = new System.Windows.Forms.TextBox();
             this.tbPorAsintomaticosIniciales = new System.Windows.Forms.TextBox();
             this.tbPorContagiadosIniciales = new System.Windows.Forms.TextBox();
             this.tbPorSanosIniciales = new System.Windows.Forms.TextBox();
             this.plPictureBox = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tbDimensionRejilla = new System.Windows.Forms.TextBox();
-            this.cbTamPixel = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbAutomata)).BeginInit();
             this.plGeneral.SuspendLayout();
             this.plPictureBox.SuspendLayout();
@@ -72,6 +75,7 @@
             // 
             // pbAutomata
             // 
+            this.pbAutomata.BackColor = System.Drawing.Color.White;
             resources.ApplyResources(this.pbAutomata, "pbAutomata");
             this.pbAutomata.Name = "pbAutomata";
             this.pbAutomata.TabStop = false;
@@ -83,9 +87,12 @@
             // plGeneral
             // 
             resources.ApplyResources(this.plGeneral, "plGeneral");
-            this.plGeneral.Controls.Add(this.cbTamPixel);
+            this.plGeneral.Controls.Add(this.label10);
+            this.plGeneral.Controls.Add(this.tbInfeccionesNecesarias);
+            this.plGeneral.Controls.Add(this.btnResumenEvolucion);
             this.plGeneral.Controls.Add(this.label1);
-            this.plGeneral.Controls.Add(this.tbDimensionRejilla);
+            this.plGeneral.Controls.Add(this.tbDiasEvolucionVirus);
+            this.plGeneral.Controls.Add(this.cbTamPixel);
             this.plGeneral.Controls.Add(this.btnAvanzar);
             this.plGeneral.Controls.Add(this.lblDia);
             this.plGeneral.Controls.Add(this.btnPausarSimulacion);
@@ -109,13 +116,52 @@
             this.plGeneral.Controls.Add(this.tbPorInmunesIniciales);
             this.plGeneral.Controls.Add(this.tbPorFallecidosIniciales);
             this.plGeneral.Controls.Add(this.tbPorUCIIniciales);
-            this.plGeneral.Controls.Add(this.tbNumDiasHospitalizacion);
+            this.plGeneral.Controls.Add(this.tbProbabilidadHospitalizacion);
             this.plGeneral.Controls.Add(this.tbProbabilidadMorir);
             this.plGeneral.Controls.Add(this.tbPorAsintomaticosIniciales);
             this.plGeneral.Controls.Add(this.tbPorContagiadosIniciales);
             this.plGeneral.Controls.Add(this.tbPorSanosIniciales);
             this.plGeneral.Controls.Add(this.plPictureBox);
             this.plGeneral.Name = "plGeneral";
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
+            // 
+            // tbInfeccionesNecesarias
+            // 
+            resources.ApplyResources(this.tbInfeccionesNecesarias, "tbInfeccionesNecesarias");
+            this.tbInfeccionesNecesarias.Name = "tbInfeccionesNecesarias";
+            // 
+            // btnResumenEvolucion
+            // 
+            resources.ApplyResources(this.btnResumenEvolucion, "btnResumenEvolucion");
+            this.btnResumenEvolucion.Name = "btnResumenEvolucion";
+            this.btnResumenEvolucion.UseVisualStyleBackColor = true;
+            this.btnResumenEvolucion.Click += new System.EventHandler(this.btnResumenEvolucion_Click);
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
+            // tbDiasEvolucionVirus
+            // 
+            resources.ApplyResources(this.tbDiasEvolucionVirus, "tbDiasEvolucionVirus");
+            this.tbDiasEvolucionVirus.Name = "tbDiasEvolucionVirus";
+            // 
+            // cbTamPixel
+            // 
+            this.cbTamPixel.FormattingEnabled = true;
+            this.cbTamPixel.Items.AddRange(new object[] {
+            resources.GetString("cbTamPixel.Items"),
+            resources.GetString("cbTamPixel.Items1"),
+            resources.GetString("cbTamPixel.Items2"),
+            resources.GetString("cbTamPixel.Items3"),
+            resources.GetString("cbTamPixel.Items4")});
+            resources.ApplyResources(this.cbTamPixel, "cbTamPixel");
+            this.cbTamPixel.Name = "cbTamPixel";
             // 
             // btnAvanzar
             // 
@@ -240,10 +286,10 @@
             resources.ApplyResources(this.tbPorUCIIniciales, "tbPorUCIIniciales");
             this.tbPorUCIIniciales.Name = "tbPorUCIIniciales";
             // 
-            // tbNumDiasHospitalizacion
+            // tbProbabilidadHospitalizacion
             // 
-            resources.ApplyResources(this.tbNumDiasHospitalizacion, "tbNumDiasHospitalizacion");
-            this.tbNumDiasHospitalizacion.Name = "tbNumDiasHospitalizacion";
+            resources.ApplyResources(this.tbProbabilidadHospitalizacion, "tbProbabilidadHospitalizacion");
+            this.tbProbabilidadHospitalizacion.Name = "tbProbabilidadHospitalizacion";
             // 
             // tbProbabilidadMorir
             // 
@@ -271,28 +317,6 @@
             this.plPictureBox.Controls.Add(this.pbAutomata);
             this.plPictureBox.Name = "plPictureBox";
             // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
-            // 
-            // tbDimensionRejilla
-            // 
-            resources.ApplyResources(this.tbDimensionRejilla, "tbDimensionRejilla");
-            this.tbDimensionRejilla.Name = "tbDimensionRejilla";
-            // 
-            // cbTamPixel
-            // 
-            this.cbTamPixel.FormattingEnabled = true;
-            this.cbTamPixel.Items.AddRange(new object[] {
-            resources.GetString("cbTamPixel.Items"),
-            resources.GetString("cbTamPixel.Items1"),
-            resources.GetString("cbTamPixel.Items2"),
-            resources.GetString("cbTamPixel.Items3"),
-            resources.GetString("cbTamPixel.Items4")});
-            resources.ApplyResources(this.cbTamPixel, "cbTamPixel");
-            this.cbTamPixel.Name = "cbTamPixel";
-            // 
             // FormAutomata
             // 
             resources.ApplyResources(this, "$this");
@@ -318,14 +342,12 @@
         private System.Windows.Forms.TextBox tbPorContagiadosIniciales;
         private System.Windows.Forms.TextBox tbPorSanosIniciales;
         private System.Windows.Forms.TextBox tbPorAsintomaticosIniciales;
-        private System.Windows.Forms.TextBox tbNumDiasHospitalizacion;
         private System.Windows.Forms.TextBox tbProbabilidadMorir;
         private System.Windows.Forms.TextBox tbPorUCIIniciales;
         private System.Windows.Forms.TextBox tbPorFallecidosIniciales;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button btnPintarIniciales;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
@@ -343,9 +365,14 @@
         private System.Windows.Forms.Button btnPausarSimulacion;
         private System.Windows.Forms.Label lblDia;
         private System.Windows.Forms.Button btnAvanzar;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox tbDimensionRejilla;
         private System.Windows.Forms.ComboBox cbTamPixel;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox tbDiasEvolucionVirus;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox tbProbabilidadHospitalizacion;
+        private System.Windows.Forms.Button btnResumenEvolucion;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox tbInfeccionesNecesarias;
     }
 }
 

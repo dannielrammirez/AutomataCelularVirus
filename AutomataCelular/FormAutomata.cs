@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -25,6 +26,11 @@ namespace AutomataCelular
         private double _numHospitalizados = 0;
         private double _numFallecidos = 0;
         public double _probabilidadMorir = 0;
+        public double _probabilidadHospitalizacion = 0;
+        public int _VecinasNecesariasParaInfeccion = 0;
+        public int _diasEvolucionVirus = 0;
+        public List<ResumenDia> _resumenDia;
+
         Bitmap bmp = null;
 
         string reglaSeleccionada = string.Empty;
@@ -34,6 +40,7 @@ namespace AutomataCelular
             InitializeComponent();
             if (instance == null) instance = this;
             _objAutomata = new Automata();
+            _resumenDia = new List<ResumenDia>();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -70,6 +77,12 @@ namespace AutomataCelular
                 _numHospitalizados = getValFromPorc(tbPorUCIIniciales.Text) * factorMultiplicador;
                 _numFallecidos = getValFromPorc(tbPorFallecidosIniciales.Text) * factorMultiplicador;
                 _probabilidadMorir = !string.IsNullOrEmpty(tbProbabilidadMorir.Text) ? int.Parse(tbProbabilidadMorir.Text) : 0;
+                _probabilidadHospitalizacion = !string.IsNullOrEmpty(tbProbabilidadHospitalizacion.Text) ? int.Parse(tbProbabilidadHospitalizacion.Text) : 0;
+                _diasEvolucionVirus = !string.IsNullOrEmpty(tbDiasEvolucionVirus.Text) ? int.Parse(tbDiasEvolucionVirus.Text) : 0;
+
+                if (string.IsNullOrEmpty(tbInfeccionesNecesarias.Text)) return false;
+
+                _VecinasNecesariasParaInfeccion = int.Parse(tbInfeccionesNecesarias.Text);
 
                 response = true;
             }
@@ -218,7 +231,9 @@ namespace AutomataCelular
         private void btnPintarIniciales_Click(object sender, EventArgs e)
         {
             countDias = 0;
-            _numPoblacion = !string.IsNullOrEmpty(tbDimensionRejilla.Text) ? int.Parse(tbDimensionRejilla.Text) : 0;
+            _resumenDia.Clear();
+            //_numPoblacion = !string.IsNullOrEmpty(tbDimensionRejilla.Text) ? int.Parse(tbDimensionRejilla.Text) : 0;
+            _numPoblacion = 0;
             CargarTamanios();
 
             arrayPersonas = new int[longitud, longitud];
@@ -246,7 +261,11 @@ namespace AutomataCelular
         private void CargarTamanios()
         {
             var tempTamanio = cbTamPixel.Text.Replace("px", "");
-            var tamPixel = int.Parse(tempTamanio);
+            int tamPixel;
+
+            var isValid = int.TryParse(tempTamanio, out tamPixel);
+
+            tamPixel = isValid ? tamPixel : 2;
 
             if (tamPixel == 1)
             {
@@ -293,8 +312,22 @@ namespace AutomataCelular
             int numInmunes = NumPersonasPorEstado(EnumEstado.INMUNE);
             int numHospitalizados = NumPersonasPorEstado(EnumEstado.UCI);
             int numFallecidos = NumPersonasPorEstado(EnumEstado.FALLECIDO);
+            countDias++;
 
-            lblDia.Text = $"Dias: {++countDias}";
+            var objResumenDia = new ResumenDia()
+            {
+                Dia = countDias,
+                NumCasosSanos = numSanos,
+                NumCasosContagiados = numContagiados,
+                NumCasosAsintomaticos = numAsintomaticos,
+                NumCasosInmunes = numInmunes,
+                NumCasosHospitalizados = numHospitalizados,
+                NumCasosFallecidos = numFallecidos
+            };
+
+            _resumenDia.Add(objResumenDia);
+
+            lblDia.Text = $"Dias: {countDias}";
             lblSanos.Text = $"Sanos: {numSanos}";
             lblContagiados.Text = $"Contagiados: {numContagiados}";
             lblAsintomaticos.Text = $"Asintomaticos: {numAsintomaticos}";
@@ -334,6 +367,12 @@ namespace AutomataCelular
         private void btnAvanzar_Click(object sender, EventArgs e)
         {
             ProcessEvoluciuon();
+        }
+
+        private void btnResumenEvolucion_Click(object sender, EventArgs e)
+        {
+            var objFormResumen = new ResumenAutomata(_resumenDia);
+            objFormResumen.ShowDialog();
         }
     }
 }

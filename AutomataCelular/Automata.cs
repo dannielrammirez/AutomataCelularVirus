@@ -139,16 +139,16 @@ namespace AutomataCelular
                     var vlrProbabilidadUCI = double.Parse(randomUCI.ToString());
 
 
-                    if (_objPersonas[x, y].NumDiasContagiado >= 8)
+                    if (_objPersonas[x, y].NumDiasContagiado >= 7)
                     {
-                        if (vlrProbabilidadUCI <= 30)
+                        if (vlrProbabilidadUCI <= FormAutomata.Instance._probabilidadHospitalizacion)
                         {
                             newStatus = EnumEstado.UCI;
                         }
                     }
                     else
                     {
-                        if (_objPersonas[x, y].NumDiasContagiado >= 14)
+                        if (_objPersonas[x, y].NumDiasContagiado >= FormAutomata.Instance._diasEvolucionVirus)
                         {
                             _clonObjPersonas[x, y].NumDiasContagiado = 0;
                             newStatus = EnumEstado.INMUNE;
@@ -168,7 +168,7 @@ namespace AutomataCelular
                     }
                     else
                     {
-                        if (_objPersonas[x, y].NumDiasContagiado >= 14)
+                        if (_objPersonas[x, y].NumDiasContagiado >= FormAutomata.Instance._diasEvolucionVirus)
                         {
                             _clonObjPersonas[x, y].NumDiasContagiado = 0;
                             newStatus = EnumEstado.INMUNE;
@@ -193,7 +193,7 @@ namespace AutomataCelular
                     int vecinasUCI = AnalizarVecinasPorEstado(x, y, EnumEstado.UCI);
                     int vecinasFallecidas = AnalizarVecinasPorEstado(x, y, EnumEstado.FALLECIDO);
 
-                    if (vecinasContagiadas >= 3)
+                    if (vecinasContagiadas >= FormAutomata.Instance._VecinasNecesariasParaInfeccion)
                         newStatus = EnumEstado.CONTAGIADO;
                     else
                         newStatus = EnumEstado.SANO;
