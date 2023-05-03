@@ -21,7 +21,7 @@ namespace AutomataCelular
         {
             foreach (var item in _resumenEvolucion)
             {
-                chartResumen.Series["CasosSanos"].Points.AddXY(item.Dia, item.NumCasosSanos);
+                chartResumen.Series["CasosSanos"].Points.AddXY(item.Dia, (item.NumCasosSanos + item.NumCasosInmunes));
                 chartResumen.Series["CasosAsintomaticos"].Points.AddXY(item.Dia, item.NumCasosAsintomaticos);
                 chartResumen.Series["CasosInfectados"].Points.AddXY(item.Dia, item.NumCasosContagiados);
                 chartResumen.Series["CasosHospitalizados"].Points.AddXY(item.Dia, item.NumCasosHospitalizados);

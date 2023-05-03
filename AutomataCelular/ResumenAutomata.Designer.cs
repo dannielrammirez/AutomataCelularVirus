@@ -53,9 +53,12 @@
             // 
             // chartResumen
             // 
+            this.chartResumen.BorderlineColor = System.Drawing.Color.IndianRed;
+            this.chartResumen.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
             this.chartResumen.BorderSkin.BorderColor = System.Drawing.Color.Maroon;
             chartArea1.Name = "ChartArea1";
             this.chartResumen.ChartAreas.Add(chartArea1);
+            this.chartResumen.Cursor = System.Windows.Forms.Cursors.Hand;
             this.chartResumen.Dock = System.Windows.Forms.DockStyle.Fill;
             legend1.Name = "Legend1";
             this.chartResumen.Legends.Add(legend1);
@@ -115,7 +118,8 @@
             this.ClientSize = new System.Drawing.Size(1124, 601);
             this.Controls.Add(this.panel1);
             this.Name = "ResumenAutomata";
-            this.Text = "ResumenAutomata";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Estadisticas evolución del virus";
             this.Load += new System.EventHandler(this.ResumenAutomata_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartResumen)).EndInit();

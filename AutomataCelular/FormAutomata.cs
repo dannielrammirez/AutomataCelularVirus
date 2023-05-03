@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AutomataCelular
@@ -17,6 +20,7 @@ namespace AutomataCelular
         private int longitudPixel = 0;
         private double factorMultiplicador;
         public int[,] arrayPersonas;
+        public Persona[,] PrevObjpersonas;
         public Persona[,] Objpersonas;
         private double _numPoblacion = 0;
         private double _numSanos = 0;
@@ -26,9 +30,12 @@ namespace AutomataCelular
         private double _numHospitalizados = 0;
         private double _numFallecidos = 0;
         public double _probabilidadMorir = 0;
+        public double _probabilidadMovimiento = 0;
         public double _probabilidadHospitalizacion = 0;
         public int _VecinasNecesariasParaInfeccion = 0;
         public int _diasEvolucionVirus = 0;
+        public double _probabilidadInfeccion = 0;
+
         public List<ResumenDia> _resumenDia;
 
         Bitmap bmp = null;
@@ -50,18 +57,29 @@ namespace AutomataCelular
         private void ReiniciarRejilla()
         {
             for (int i = 0; i < longitud; i++)
+            {
                 for (int j = 0; j < longitud; j++)
                 {
                     Objpersonas[i, j] = new Persona(i, j);
                     arrayPersonas[i, j] = 0;
                 }
+            }
+
+            //Parallel.For(0, longitud, i =>
+            //{
+            //    for (int j = 0; j < longitud; j++)
+            //    {
+            //        Objpersonas[i, j] = new Persona(i, j);
+            //        arrayPersonas[i, j] = 0;
+            //    }
+            //});
 
             PintarMatriz();
         }
 
         private void timerAutomata_Tick(object sender, EventArgs e)
         {
-            ProcessEvoluciuon();
+            ProcessEvolucion();
         }
 
         private bool ValidarInformacionInicial()
@@ -78,6 +96,8 @@ namespace AutomataCelular
                 _numFallecidos = getValFromPorc(tbPorFallecidosIniciales.Text) * factorMultiplicador;
                 _probabilidadMorir = !string.IsNullOrEmpty(tbProbabilidadMorir.Text) ? int.Parse(tbProbabilidadMorir.Text) : 0;
                 _probabilidadHospitalizacion = !string.IsNullOrEmpty(tbProbabilidadHospitalizacion.Text) ? int.Parse(tbProbabilidadHospitalizacion.Text) : 0;
+                _probabilidadInfeccion = !string.IsNullOrEmpty(tbProbabilidadInfeccion.Text) ? int.Parse(tbProbabilidadInfeccion.Text) : 50;
+                _probabilidadMovimiento = !string.IsNullOrEmpty(tbProbabilidadMovimiento.Text) ? int.Parse(tbProbabilidadMovimiento.Text) : 50;
                 _diasEvolucionVirus = !string.IsNullOrEmpty(tbDiasEvolucionVirus.Text) ? int.Parse(tbDiasEvolucionVirus.Text) : 0;
 
                 if (string.IsNullOrEmpty(tbInfeccionesNecesarias.Text)) return false;
@@ -149,7 +169,7 @@ namespace AutomataCelular
             }
         }
 
-        private int NumPersonasPorEstado(EnumEstado prmEstado)
+        public int NumPersonasPorEstado(EnumEstado prmEstado)
         {
             int response = 0;
 
@@ -164,23 +184,56 @@ namespace AutomataCelular
 
         private void PintarMatriz()
         {
-            //bmp = new Bitmap(pbAutomata.Width, pbAutomata.Height);
+            bmp = new Bitmap(pbAutomata.Width, pbAutomata.Height);
 
             for (int x = 0; x < longitud; x++)
             {
                 for (int y = 0; y < longitud; y++)
                 {
-                    //PintarPixel(bmp, x, y, personas[x, y] == 0);
                     var tempPersona = Objpersonas[x, y];
                     var tempColor = getColorPixel(tempPersona.Estado);
+
+                    Objpersonas[x, y].IsModified = false;
 
                     PintarPixel(bmp, x, y, tempColor);
                 }
             }
+
+            //Parallel.For(0, longitud - 1, x =>
+            //{
+            //    for (int y = 0; y < longitud; y++)
+            //    {
+            //        //PintarPixel(bmp, x, y, personas[x, y] == 0);
+            //        var tempPersona = Objpersonas[x, y];
+            //        var tempColor = getColorPixel(tempPersona.Estado);
+
+            //        lock (bmp)
+            //        {
+            //            PintarPixel(bmp, x, y, tempColor);
+            //        }
+
+            //    }
+            //});
         }
 
         private void PintarPixel(Bitmap bmp, int x, int y, Color prmColor)
         {
+            //Parallel.For(0, longitudPixel, _x =>
+            //{
+            //    for (int _y = 0; _y < longitudPixel; _y++)
+            //    {
+            //        var ejeX = _x + (x * longitudPixel);
+            //        var ejeY = _y + (y * longitudPixel);
+
+            //        //lock (bmp)
+            //        //{
+            //        //    bmp.SetPixel(ejeX, ejeY, prmColor);
+            //        //}
+            //        bmp.SetPixel(ejeX, ejeY, prmColor);
+
+            //    }
+            //});
+
             for (int _x = 0; _x < longitudPixel; _x++)
             {
                 for (int _y = 0; _y < longitudPixel; _y++)
@@ -230,6 +283,9 @@ namespace AutomataCelular
 
         private void btnPintarIniciales_Click(object sender, EventArgs e)
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
             countDias = 0;
             _resumenDia.Clear();
             //_numPoblacion = !string.IsNullOrEmpty(tbDimensionRejilla.Text) ? int.Parse(tbDimensionRejilla.Text) : 0;
@@ -256,6 +312,9 @@ namespace AutomataCelular
             {
                 MessageBox.Show("Datos incorrectos");
             }
+
+            stopwatch.Stop();
+            tSStatusLabel.Text = $"Pintar Patron Inicial - Tiempo de ejecución: (m/s) {stopwatch.ElapsedMilliseconds}";
         }
 
         private void CargarTamanios()
@@ -312,6 +371,7 @@ namespace AutomataCelular
             int numInmunes = NumPersonasPorEstado(EnumEstado.INMUNE);
             int numHospitalizados = NumPersonasPorEstado(EnumEstado.UCI);
             int numFallecidos = NumPersonasPorEstado(EnumEstado.FALLECIDO);
+            int numVacios = NumPersonasPorEstado(EnumEstado.VACIO);
             countDias++;
 
             var objResumenDia = new ResumenDia()
@@ -334,6 +394,7 @@ namespace AutomataCelular
             lblInmunes.Text = $"Inmunes: {numInmunes}";
             lblHospitalizados.Text = $"Hospitalizados: {numHospitalizados}";
             lblFallecidos.Text = $"Fallecidos: {numFallecidos}";
+            lblVacios.Text = $"Vacios: {numVacios}";
         }
 
         private void btnStartProcess_Click(object sender, EventArgs e)
@@ -343,18 +404,61 @@ namespace AutomataCelular
             btnStartProcess.Enabled = false;
         }
 
-        private void ProcessEvoluciuon()
+        private Persona[,] GetClonArrayObject(Persona[,] arrayOriginal)
+        {
+            Persona[,] arrayClonado = new Persona[longitud, longitud];
+
+            for (int i = 0; i < longitud; i++)
+            {
+                for (int j = 0; j < longitud; j++)
+                {
+                    arrayClonado[i, j] = (Persona)((ICloneable)arrayOriginal[i, j]).Clone();
+                }
+            }
+
+            return arrayClonado;
+        }
+
+        private void ProcessEvolucion()
         {
             _objAutomata._longitud = longitud;
             _objAutomata._objPersonas = Objpersonas;
             _objAutomata._arrayPersonas = arrayPersonas;
-            var newObjectpersonas = _objAutomata.Process();
+            PrevObjpersonas = GetClonArrayObject(Objpersonas);
+            btnResumenEvolucion.Enabled = true;
+
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            var newObjectpersonas = _objAutomata.Movimiento();
+
             Objpersonas = newObjectpersonas;
 
             PintarMatriz();
             ShowResumen();
 
             pbAutomata.Image = bmp;
+            pbAutomata.Refresh();
+
+            if (checkInfeccion.Checked)
+            {
+                Thread.Sleep(500);
+
+                newObjectpersonas = _objAutomata.Process();
+
+                Objpersonas = newObjectpersonas;
+
+                PintarMatriz();
+                ShowResumen();
+
+                pbAutomata.Image = bmp;
+
+                pbAutomata.Refresh();
+            }
+
+            stopwatch.Stop();
+
+            tSStatusLabel.Text = $"Tiempo de ejecución: (m/s) {stopwatch.ElapsedMilliseconds}";
         }
 
         private void btnPausarSimulacion_Click(object sender, EventArgs e)
@@ -366,13 +470,37 @@ namespace AutomataCelular
 
         private void btnAvanzar_Click(object sender, EventArgs e)
         {
-            ProcessEvoluciuon();
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            ProcessEvolucion();
+
+            stopwatch.Stop();
+            tSStatusLabel.Text = $"Avanzar 1 dia - Tiempo de ejecución: (m/s) {stopwatch.ElapsedMilliseconds}";
         }
 
         private void btnResumenEvolucion_Click(object sender, EventArgs e)
         {
             var objFormResumen = new ResumenAutomata(_resumenDia);
             objFormResumen.ShowDialog();
+        }
+
+        private void btnRetroceder_Click(object sender, EventArgs e)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            Objpersonas = PrevObjpersonas;
+
+            PintarMatriz();
+            ShowResumen();
+
+            pbAutomata.Image = bmp;
+
+            stopwatch.Stop();
+            btnResumenEvolucion.Enabled = false;
+
+            tSStatusLabel.Text = $"Retroceder - Tiempo de ejecución: (m/s) {stopwatch.ElapsedMilliseconds}";
         }
     }
 }

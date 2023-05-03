@@ -49,7 +49,6 @@
             this.lblAsintomaticos = new System.Windows.Forms.Label();
             this.lblContagiados = new System.Windows.Forms.Label();
             this.lblSanos = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.btnPintarIniciales = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -68,9 +67,19 @@
             this.tbPorContagiadosIniciales = new System.Windows.Forms.TextBox();
             this.tbPorSanosIniciales = new System.Windows.Forms.TextBox();
             this.plPictureBox = new System.Windows.Forms.Panel();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tSStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.label12 = new System.Windows.Forms.Label();
+            this.tbProbabilidadInfeccion = new System.Windows.Forms.TextBox();
+            this.lblVacios = new System.Windows.Forms.Label();
+            this.btnRetroceder = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.tbProbabilidadMovimiento = new System.Windows.Forms.TextBox();
+            this.checkInfeccion = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbAutomata)).BeginInit();
             this.plGeneral.SuspendLayout();
             this.plPictureBox.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pbAutomata
@@ -82,11 +91,19 @@
             // 
             // timerAutomata
             // 
+            this.timerAutomata.Interval = 500;
             this.timerAutomata.Tick += new System.EventHandler(this.timerAutomata_Tick);
             // 
             // plGeneral
             // 
             resources.ApplyResources(this.plGeneral, "plGeneral");
+            this.plGeneral.Controls.Add(this.checkInfeccion);
+            this.plGeneral.Controls.Add(this.label11);
+            this.plGeneral.Controls.Add(this.tbProbabilidadMovimiento);
+            this.plGeneral.Controls.Add(this.btnRetroceder);
+            this.plGeneral.Controls.Add(this.lblVacios);
+            this.plGeneral.Controls.Add(this.label12);
+            this.plGeneral.Controls.Add(this.tbProbabilidadInfeccion);
             this.plGeneral.Controls.Add(this.label10);
             this.plGeneral.Controls.Add(this.tbInfeccionesNecesarias);
             this.plGeneral.Controls.Add(this.btnResumenEvolucion);
@@ -103,7 +120,6 @@
             this.plGeneral.Controls.Add(this.lblAsintomaticos);
             this.plGeneral.Controls.Add(this.lblContagiados);
             this.plGeneral.Controls.Add(this.lblSanos);
-            this.plGeneral.Controls.Add(this.label11);
             this.plGeneral.Controls.Add(this.btnPintarIniciales);
             this.plGeneral.Controls.Add(this.label9);
             this.plGeneral.Controls.Add(this.label8);
@@ -219,11 +235,6 @@
             resources.ApplyResources(this.lblSanos, "lblSanos");
             this.lblSanos.Name = "lblSanos";
             // 
-            // label11
-            // 
-            resources.ApplyResources(this.label11, "label11");
-            this.label11.Name = "label11";
-            // 
             // btnPintarIniciales
             // 
             resources.ApplyResources(this.btnPintarIniciales, "btnPintarIniciales");
@@ -317,10 +328,61 @@
             this.plPictureBox.Controls.Add(this.pbAutomata);
             this.plPictureBox.Name = "plPictureBox";
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tSStatusLabel});
+            resources.ApplyResources(this.statusStrip1, "statusStrip1");
+            this.statusStrip1.Name = "statusStrip1";
+            // 
+            // tSStatusLabel
+            // 
+            this.tSStatusLabel.Name = "tSStatusLabel";
+            resources.ApplyResources(this.tSStatusLabel, "tSStatusLabel");
+            // 
+            // label12
+            // 
+            resources.ApplyResources(this.label12, "label12");
+            this.label12.Name = "label12";
+            // 
+            // tbProbabilidadInfeccion
+            // 
+            resources.ApplyResources(this.tbProbabilidadInfeccion, "tbProbabilidadInfeccion");
+            this.tbProbabilidadInfeccion.Name = "tbProbabilidadInfeccion";
+            // 
+            // lblVacios
+            // 
+            resources.ApplyResources(this.lblVacios, "lblVacios");
+            this.lblVacios.Name = "lblVacios";
+            // 
+            // btnRetroceder
+            // 
+            resources.ApplyResources(this.btnRetroceder, "btnRetroceder");
+            this.btnRetroceder.Name = "btnRetroceder";
+            this.btnRetroceder.UseVisualStyleBackColor = true;
+            this.btnRetroceder.Click += new System.EventHandler(this.btnRetroceder_Click);
+            // 
+            // label11
+            // 
+            resources.ApplyResources(this.label11, "label11");
+            this.label11.Name = "label11";
+            // 
+            // tbProbabilidadMovimiento
+            // 
+            resources.ApplyResources(this.tbProbabilidadMovimiento, "tbProbabilidadMovimiento");
+            this.tbProbabilidadMovimiento.Name = "tbProbabilidadMovimiento";
+            // 
+            // checkInfeccion
+            // 
+            resources.ApplyResources(this.checkInfeccion, "checkInfeccion");
+            this.checkInfeccion.Name = "checkInfeccion";
+            this.checkInfeccion.UseVisualStyleBackColor = true;
+            // 
             // FormAutomata
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.plGeneral);
             this.MaximizeBox = false;
             this.Name = "FormAutomata";
@@ -329,7 +391,10 @@
             this.plGeneral.ResumeLayout(false);
             this.plGeneral.PerformLayout();
             this.plPictureBox.ResumeLayout(false);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
 		}
 
@@ -345,7 +410,6 @@
         private System.Windows.Forms.TextBox tbProbabilidadMorir;
         private System.Windows.Forms.TextBox tbPorUCIIniciales;
         private System.Windows.Forms.TextBox tbPorFallecidosIniciales;
-        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button btnPintarIniciales;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label7;
@@ -373,6 +437,15 @@
         private System.Windows.Forms.Button btnResumenEvolucion;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox tbInfeccionesNecesarias;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel tSStatusLabel;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox tbProbabilidadInfeccion;
+        private System.Windows.Forms.Label lblVacios;
+        private System.Windows.Forms.Button btnRetroceder;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox tbProbabilidadMovimiento;
+        private System.Windows.Forms.CheckBox checkInfeccion;
     }
 }
 
