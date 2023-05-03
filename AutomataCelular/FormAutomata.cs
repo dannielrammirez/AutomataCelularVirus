@@ -425,6 +425,7 @@ namespace AutomataCelular
             _objAutomata._objPersonas = Objpersonas;
             _objAutomata._arrayPersonas = arrayPersonas;
             PrevObjpersonas = GetClonArrayObject(Objpersonas);
+            btnRetroceder.Enabled = true;
             btnResumenEvolucion.Enabled = true;
 
             Stopwatch stopwatch = new Stopwatch();
@@ -435,7 +436,7 @@ namespace AutomataCelular
             Objpersonas = newObjectpersonas;
 
             PintarMatriz();
-            ShowResumen();
+            //ShowResumen();
 
             pbAutomata.Image = bmp;
             pbAutomata.Refresh();
@@ -498,7 +499,7 @@ namespace AutomataCelular
             pbAutomata.Image = bmp;
 
             stopwatch.Stop();
-            btnResumenEvolucion.Enabled = false;
+            btnRetroceder.Enabled = false;
 
             tSStatusLabel.Text = $"Retroceder - Tiempo de ejecución: (m/s) {stopwatch.ElapsedMilliseconds}";
         }
