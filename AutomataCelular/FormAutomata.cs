@@ -256,7 +256,7 @@ namespace AutomataCelular
                     response = Color.White;
                     break;
                 case EnumEstado.SANO:
-                    response = Color.DarkGreen;
+                    response = Color.LightGreen;
                     break;
                 case EnumEstado.CONTAGIADO:
                     response = Color.Red;
@@ -427,24 +427,22 @@ namespace AutomataCelular
             PrevObjpersonas = GetClonArrayObject(Objpersonas);
             btnRetroceder.Enabled = true;
             btnResumenEvolucion.Enabled = true;
+            Persona[,] newObjectpersonas;
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            var newObjectpersonas = _objAutomata.Movimiento();
+            //newObjectpersonas = _objAutomata.Movimiento();
 
-            Objpersonas = newObjectpersonas;
+            //Objpersonas = newObjectpersonas;
 
-            PintarMatriz();
-            //ShowResumen();
+            //PintarMatriz();
 
-            pbAutomata.Image = bmp;
-            pbAutomata.Refresh();
+            //pbAutomata.Image = bmp;
+            //pbAutomata.Refresh();
 
             if (checkInfeccion.Checked)
             {
-                Thread.Sleep(500);
-
                 newObjectpersonas = _objAutomata.Process();
 
                 Objpersonas = newObjectpersonas;
@@ -455,7 +453,18 @@ namespace AutomataCelular
                 pbAutomata.Image = bmp;
 
                 pbAutomata.Refresh();
+                _objAutomata._objPersonas = Objpersonas;
+                //Thread.Sleep(1000);
             }
+
+            newObjectpersonas = _objAutomata.Movimiento();
+
+            Objpersonas = newObjectpersonas;
+
+            PintarMatriz();
+
+            pbAutomata.Image = bmp;
+            pbAutomata.Refresh();
 
             stopwatch.Stop();
 
@@ -488,6 +497,8 @@ namespace AutomataCelular
 
         private void btnRetroceder_Click(object sender, EventArgs e)
         {
+            countDias = countDias - 2;
+            ShowResumen();
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 

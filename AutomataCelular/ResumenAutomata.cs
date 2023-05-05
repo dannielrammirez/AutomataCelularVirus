@@ -21,12 +21,12 @@ namespace AutomataCelular
         {
             foreach (var item in _resumenEvolucion)
             {
-                chartResumen.Series["CasosSanos"].Points.AddXY(item.Dia, (item.NumCasosSanos + item.NumCasosInmunes));
-                chartResumen.Series["CasosAsintomaticos"].Points.AddXY(item.Dia, item.NumCasosAsintomaticos);
-                chartResumen.Series["CasosInfectados"].Points.AddXY(item.Dia, item.NumCasosContagiados);
-                chartResumen.Series["CasosHospitalizados"].Points.AddXY(item.Dia, item.NumCasosHospitalizados);
-                chartResumen.Series["CasosFallecidos"].Points.AddXY(item.Dia, item.NumCasosFallecidos);
-                chartResumen.Series["CasosInmunes"].Points.AddXY(item.Dia, item.NumCasosInmunes);
+                chartResumen.Series["Sanos"].Points.AddXY(item.Dia, (item.NumCasosSanos + item.NumCasosInmunes));
+                chartResumen.Series["Asintomaticos"].Points.AddXY(item.Dia, item.NumCasosAsintomaticos);
+                chartResumen.Series["Infectados"].Points.AddXY(item.Dia, item.NumCasosContagiados);
+                chartResumen.Series["Hospitalizados"].Points.AddXY(item.Dia, item.NumCasosHospitalizados);
+                chartResumen.Series["Fallecidos"].Points.AddXY(item.Dia, item.NumCasosFallecidos);
+                chartResumen.Series["Inmunes"].Points.AddXY(item.Dia, item.NumCasosInmunes);
             }
             
             chartResumen.Titles.Add("Numero de casos");
