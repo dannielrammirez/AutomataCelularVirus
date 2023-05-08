@@ -70,42 +70,6 @@ namespace AutomataCelular
             {
                 for (int y = 0; y < _longitud; y++)
                 {
-                    //if (_objPersonas[x, y].Estado != EnumEstado.FALLECIDO && _objPersonas[x, y].Estado != EnumEstado.UCI)
-                    //{
-                    //    if (_random.Next(0, 100) > FormAutomata.Instance._probabilidadMovimiento)
-                    //    {
-                    //        var posDisponibles = AnalizarVecinas(x, y).ToArray();
-                    //        posDisponibles = posDisponibles.Where(pd => pd.Estado != EnumEstado.FALLECIDO && pd.Estado != EnumEstado.UCI).ToArray();
-
-                    //        if (posDisponibles.Length > 0)
-                    //        {
-                    //            int indiceRandom = _random.Next(0, posDisponibles.Length);
-                    //            var aleaPosDis = posDisponibles[indiceRandom];
-                    //            var currentClon = GetClonObject(_clonObjPersonas[x, y]);
-                    //            var aleaClon = GetClonObject(aleaPosDis);
-
-                    //            if (_objPersonas[aleaClon.EjeX, aleaClon.EjeY].Estado != EnumEstado.VACIO)
-                    //            {
-                    //                if (!_clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].IsModified)
-                    //                {
-                    //                    _clonObjPersonas[x, y].Estado = aleaClon.Estado;
-                    //                    _clonObjPersonas[x, y].NumDiasContagiado = aleaClon.NumDiasContagiado;
-                    //                    _clonObjPersonas[x, y].NumDiasFallecido = aleaClon.NumDiasFallecido;
-                    //                    _clonObjPersonas[x, y].NumDiasSano = aleaClon.NumDiasSano;
-                    //                    _clonObjPersonas[x, y].NumDiasUCI = aleaClon.NumDiasUCI;
-                    //                    _clonObjPersonas[x, y].IsModified = true;
-
-                    //                    _clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].Estado = currentClon.Estado;
-                    //                    _clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].NumDiasContagiado = currentClon.NumDiasContagiado;
-                    //                    _clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].NumDiasFallecido = currentClon.NumDiasFallecido;
-                    //                    _clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].NumDiasSano = currentClon.NumDiasSano;
-                    //                    _clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].NumDiasUCI = currentClon.NumDiasUCI;
-                    //                    _clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].IsModified = true;
-                    //                }
-                    //            }
-                    //        }
-                    //    }
-                    //}
                     ProcessMovimiento(x, y);
                 }
             }

@@ -33,6 +33,13 @@
             this.pbAutomata = new System.Windows.Forms.PictureBox();
             this.timerAutomata = new System.Windows.Forms.Timer(this.components);
             this.plGeneral = new System.Windows.Forms.Panel();
+            this.checkInfeccion = new System.Windows.Forms.CheckBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.tbProbabilidadMovimiento = new System.Windows.Forms.TextBox();
+            this.btnRetroceder = new System.Windows.Forms.Button();
+            this.lblVacios = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.tbProbabilidadInfeccion = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.tbInfeccionesNecesarias = new System.Windows.Forms.TextBox();
             this.btnResumenEvolucion = new System.Windows.Forms.Button();
@@ -69,13 +76,7 @@
             this.plPictureBox = new System.Windows.Forms.Panel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tSStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.label12 = new System.Windows.Forms.Label();
-            this.tbProbabilidadInfeccion = new System.Windows.Forms.TextBox();
-            this.lblVacios = new System.Windows.Forms.Label();
-            this.btnRetroceder = new System.Windows.Forms.Button();
-            this.label11 = new System.Windows.Forms.Label();
-            this.tbProbabilidadMovimiento = new System.Windows.Forms.TextBox();
-            this.checkInfeccion = new System.Windows.Forms.CheckBox();
+            this.checkMovimiento = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbAutomata)).BeginInit();
             this.plGeneral.SuspendLayout();
             this.plPictureBox.SuspendLayout();
@@ -97,6 +98,7 @@
             // plGeneral
             // 
             resources.ApplyResources(this.plGeneral, "plGeneral");
+            this.plGeneral.Controls.Add(this.checkMovimiento);
             this.plGeneral.Controls.Add(this.checkInfeccion);
             this.plGeneral.Controls.Add(this.label11);
             this.plGeneral.Controls.Add(this.tbProbabilidadMovimiento);
@@ -139,6 +141,44 @@
             this.plGeneral.Controls.Add(this.tbPorSanosIniciales);
             this.plGeneral.Controls.Add(this.plPictureBox);
             this.plGeneral.Name = "plGeneral";
+            // 
+            // checkInfeccion
+            // 
+            resources.ApplyResources(this.checkInfeccion, "checkInfeccion");
+            this.checkInfeccion.Name = "checkInfeccion";
+            this.checkInfeccion.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            resources.ApplyResources(this.label11, "label11");
+            this.label11.Name = "label11";
+            // 
+            // tbProbabilidadMovimiento
+            // 
+            resources.ApplyResources(this.tbProbabilidadMovimiento, "tbProbabilidadMovimiento");
+            this.tbProbabilidadMovimiento.Name = "tbProbabilidadMovimiento";
+            // 
+            // btnRetroceder
+            // 
+            resources.ApplyResources(this.btnRetroceder, "btnRetroceder");
+            this.btnRetroceder.Name = "btnRetroceder";
+            this.btnRetroceder.UseVisualStyleBackColor = true;
+            this.btnRetroceder.Click += new System.EventHandler(this.btnRetroceder_Click);
+            // 
+            // lblVacios
+            // 
+            resources.ApplyResources(this.lblVacios, "lblVacios");
+            this.lblVacios.Name = "lblVacios";
+            // 
+            // label12
+            // 
+            resources.ApplyResources(this.label12, "label12");
+            this.label12.Name = "label12";
+            // 
+            // tbProbabilidadInfeccion
+            // 
+            resources.ApplyResources(this.tbProbabilidadInfeccion, "tbProbabilidadInfeccion");
+            this.tbProbabilidadInfeccion.Name = "tbProbabilidadInfeccion";
             // 
             // label10
             // 
@@ -340,43 +380,11 @@
             this.tSStatusLabel.Name = "tSStatusLabel";
             resources.ApplyResources(this.tSStatusLabel, "tSStatusLabel");
             // 
-            // label12
+            // checkMovimiento
             // 
-            resources.ApplyResources(this.label12, "label12");
-            this.label12.Name = "label12";
-            // 
-            // tbProbabilidadInfeccion
-            // 
-            resources.ApplyResources(this.tbProbabilidadInfeccion, "tbProbabilidadInfeccion");
-            this.tbProbabilidadInfeccion.Name = "tbProbabilidadInfeccion";
-            // 
-            // lblVacios
-            // 
-            resources.ApplyResources(this.lblVacios, "lblVacios");
-            this.lblVacios.Name = "lblVacios";
-            // 
-            // btnRetroceder
-            // 
-            resources.ApplyResources(this.btnRetroceder, "btnRetroceder");
-            this.btnRetroceder.Name = "btnRetroceder";
-            this.btnRetroceder.UseVisualStyleBackColor = true;
-            this.btnRetroceder.Click += new System.EventHandler(this.btnRetroceder_Click);
-            // 
-            // label11
-            // 
-            resources.ApplyResources(this.label11, "label11");
-            this.label11.Name = "label11";
-            // 
-            // tbProbabilidadMovimiento
-            // 
-            resources.ApplyResources(this.tbProbabilidadMovimiento, "tbProbabilidadMovimiento");
-            this.tbProbabilidadMovimiento.Name = "tbProbabilidadMovimiento";
-            // 
-            // checkInfeccion
-            // 
-            resources.ApplyResources(this.checkInfeccion, "checkInfeccion");
-            this.checkInfeccion.Name = "checkInfeccion";
-            this.checkInfeccion.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.checkMovimiento, "checkMovimiento");
+            this.checkMovimiento.Name = "checkMovimiento";
+            this.checkMovimiento.UseVisualStyleBackColor = true;
             // 
             // FormAutomata
             // 
@@ -445,6 +453,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox tbProbabilidadMovimiento;
         private System.Windows.Forms.CheckBox checkInfeccion;
+        private System.Windows.Forms.CheckBox checkMovimiento;
     }
 }
 

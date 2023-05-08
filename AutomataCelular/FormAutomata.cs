@@ -4,8 +4,6 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AutomataCelular
@@ -51,13 +49,11 @@ namespace AutomataCelular
         private void ReiniciarRejilla()
         {
             for (int i = 0; i < longitud; i++)
-            {
                 for (int j = 0; j < longitud; j++)
                 {
                     Objpersonas[i, j] = new Persona(i, j);
                     arrayPersonas[i, j] = 0;
                 }
-            }
 
             PintarMatriz();
         }
@@ -188,7 +184,6 @@ namespace AutomataCelular
         private void PintarPixel(Bitmap bmp, int x, int y, Color prmColor)
         {
             for (int _x = 0; _x < longitudPixel; _x++)
-            {
                 for (int _y = 0; _y < longitudPixel; _y++)
                 {
                     var ejeX = _x + (x * longitudPixel);
@@ -196,7 +191,6 @@ namespace AutomataCelular
 
                     bmp.SetPixel(ejeX, ejeY, prmColor);
                 }
-            }
         }
 
         private Color getColorPixel(EnumEstado prmEstado)
@@ -270,46 +264,40 @@ namespace AutomataCelular
         private void CargarTamanios()
         {
             var tempTamanio = cbTamPixel.Text.Replace("px", "");
-            int tamPixel;
+            int tamPixel = int.Parse(tempTamanio);
 
-            var isValid = int.TryParse(tempTamanio, out tamPixel);
-
-            tamPixel = isValid ? tamPixel : 2;
-
-            if (tamPixel == 1)
+            switch (tamPixel)
             {
-                longitud = 800;
-                longitudPixel = 1;
-                factorMultiplicador = 1;
-                _numPoblacion = _numPoblacion == 0 ? longitud * longitud : _numPoblacion;
-            }
-            else if (tamPixel == 2)
-            {
-                longitud = 400;
-                longitudPixel = 2;
-                factorMultiplicador = 1;
-                _numPoblacion = _numPoblacion == 0 ? longitud * longitud : _numPoblacion;
-            }
-            else if (tamPixel == 4)
-            {
-                longitud = 200;
-                longitudPixel = 4;
-                factorMultiplicador = 1;
-                _numPoblacion = _numPoblacion == 0 ? longitud * longitud : _numPoblacion;
-            }
-            else if (tamPixel == 8)
-            {
-                longitud = 100;
-                longitudPixel = 8;
-                factorMultiplicador = 0.25;
-                _numPoblacion = _numPoblacion == 0 ? (longitud * longitud) * 4 : _numPoblacion;
-            }
-            else if (tamPixel == 16)
-            {
-                longitud = 50;
-                longitudPixel = 16;
-                factorMultiplicador = 0.125;
-                _numPoblacion = _numPoblacion == 0 ? (longitud * longitud) * 8 : _numPoblacion;
+                case 1:
+                    longitud = 800;
+                    longitudPixel = 1;
+                    factorMultiplicador = 1;
+                    _numPoblacion = _numPoblacion == 0 ? longitud * longitud : _numPoblacion;
+                    break;
+                case 2:
+                    longitud = 400;
+                    longitudPixel = 2;
+                    factorMultiplicador = 1;
+                    _numPoblacion = _numPoblacion == 0 ? longitud * longitud : _numPoblacion;
+                    break;
+                case 4:
+                    longitud = 200;
+                    longitudPixel = 4;
+                    factorMultiplicador = 1;
+                    _numPoblacion = _numPoblacion == 0 ? longitud * longitud : _numPoblacion;
+                    break;
+                case 8:
+                    longitud = 100;
+                    longitudPixel = 8;
+                    factorMultiplicador = 0.25;
+                    _numPoblacion = _numPoblacion == 0 ? (longitud * longitud) * 4 : _numPoblacion;
+                    break;
+                default:
+                    longitud = 50;
+                    longitudPixel = 16;
+                    factorMultiplicador = 0.125;
+                    _numPoblacion = _numPoblacion == 0 ? (longitud * longitud) * 8 : _numPoblacion;
+                    break;
             }
         }
 
@@ -359,12 +347,8 @@ namespace AutomataCelular
             Persona[,] arrayClonado = new Persona[longitud, longitud];
 
             for (int i = 0; i < longitud; i++)
-            {
                 for (int j = 0; j < longitud; j++)
-                {
                     arrayClonado[i, j] = (Persona)((ICloneable)arrayOriginal[i, j]).Clone();
-                }
-            }
 
             return arrayClonado;
         }
@@ -382,29 +366,26 @@ namespace AutomataCelular
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
+
             if (checkInfeccion.Checked)
             {
                 newObjectpersonas = _objAutomata.Process();
-
                 Objpersonas = newObjectpersonas;
-
                 PintarMatriz();
                 ShowResumen();
-
                 pbAutomata.Image = bmp;
-
-                pbAutomata.Refresh();
                 _objAutomata._objPersonas = Objpersonas;
+                pbAutomata.Refresh();
             }
 
-            newObjectpersonas = _objAutomata.Movimiento();
-
-            Objpersonas = newObjectpersonas;
-
-            PintarMatriz();
-
-            pbAutomata.Image = bmp;
-            pbAutomata.Refresh();
+            if (checkMovimiento.Checked)
+            {
+                newObjectpersonas = _objAutomata.Movimiento();
+                Objpersonas = newObjectpersonas;
+                PintarMatriz();
+                pbAutomata.Image = bmp;
+                pbAutomata.Refresh();
+            }
 
             stopwatch.Stop();
 
