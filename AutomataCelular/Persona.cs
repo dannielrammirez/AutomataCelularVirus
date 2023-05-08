@@ -22,7 +22,6 @@ namespace AutomataCelular
         public int NumDiasContagiado { get; set; }
         public int NumDiasUCI { get; set; }
         public int NumDiasFallecido { get; set; }
-        public int PorDerfenzas { get; set; }
         public bool IsModified { get; set; }
 
         public object Clone()

@@ -386,7 +386,6 @@
             this.Controls.Add(this.plGeneral);
             this.MaximizeBox = false;
             this.Name = "FormAutomata";
-            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbAutomata)).EndInit();
             this.plGeneral.ResumeLayout(false);
             this.plGeneral.PerformLayout();

@@ -66,45 +66,86 @@ namespace AutomataCelular
 
         public void MoverIndividuo()
         {
-            _random = GetThreadRandom();
-
             for (int x = 0; x < _longitud; x++)
             {
                 for (int y = 0; y < _longitud; y++)
                 {
-                    if (_objPersonas[x, y].Estado != EnumEstado.FALLECIDO && _objPersonas[x, y].Estado != EnumEstado.UCI)
+                    //if (_objPersonas[x, y].Estado != EnumEstado.FALLECIDO && _objPersonas[x, y].Estado != EnumEstado.UCI)
+                    //{
+                    //    if (_random.Next(0, 100) > FormAutomata.Instance._probabilidadMovimiento)
+                    //    {
+                    //        var posDisponibles = AnalizarVecinas(x, y).ToArray();
+                    //        posDisponibles = posDisponibles.Where(pd => pd.Estado != EnumEstado.FALLECIDO && pd.Estado != EnumEstado.UCI).ToArray();
+
+                    //        if (posDisponibles.Length > 0)
+                    //        {
+                    //            int indiceRandom = _random.Next(0, posDisponibles.Length);
+                    //            var aleaPosDis = posDisponibles[indiceRandom];
+                    //            var currentClon = GetClonObject(_clonObjPersonas[x, y]);
+                    //            var aleaClon = GetClonObject(aleaPosDis);
+
+                    //            if (_objPersonas[aleaClon.EjeX, aleaClon.EjeY].Estado != EnumEstado.VACIO)
+                    //            {
+                    //                if (!_clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].IsModified)
+                    //                {
+                    //                    _clonObjPersonas[x, y].Estado = aleaClon.Estado;
+                    //                    _clonObjPersonas[x, y].NumDiasContagiado = aleaClon.NumDiasContagiado;
+                    //                    _clonObjPersonas[x, y].NumDiasFallecido = aleaClon.NumDiasFallecido;
+                    //                    _clonObjPersonas[x, y].NumDiasSano = aleaClon.NumDiasSano;
+                    //                    _clonObjPersonas[x, y].NumDiasUCI = aleaClon.NumDiasUCI;
+                    //                    _clonObjPersonas[x, y].IsModified = true;
+
+                    //                    _clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].Estado = currentClon.Estado;
+                    //                    _clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].NumDiasContagiado = currentClon.NumDiasContagiado;
+                    //                    _clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].NumDiasFallecido = currentClon.NumDiasFallecido;
+                    //                    _clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].NumDiasSano = currentClon.NumDiasSano;
+                    //                    _clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].NumDiasUCI = currentClon.NumDiasUCI;
+                    //                    _clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].IsModified = true;
+                    //                }
+                    //            }
+                    //        }
+                    //    }
+                    //}
+                    ProcessMovimiento(x, y);
+                }
+            }
+        }
+
+        private void ProcessMovimiento(int x, int y)
+        {
+            _random = GetThreadRandom();
+
+            if (_objPersonas[x, y].Estado != EnumEstado.FALLECIDO && _objPersonas[x, y].Estado != EnumEstado.UCI)
+            {
+                if (_random.Next(0, 100) > FormAutomata.Instance._probabilidadMovimiento)
+                {
+                    var posDisponibles = AnalizarVecinas(x, y).ToArray();
+                    posDisponibles = posDisponibles.Where(pd => pd.Estado != EnumEstado.FALLECIDO && pd.Estado != EnumEstado.UCI).ToArray();
+
+                    if (posDisponibles.Length > 0)
                     {
-                        if (_random.Next(0, 100) > FormAutomata.Instance._probabilidadMovimiento)
+                        int indiceRandom = _random.Next(0, posDisponibles.Length);
+                        var aleaPosDis = posDisponibles[indiceRandom];
+                        var currentClon = GetClonObject(_clonObjPersonas[x, y]);
+                        var aleaClon = GetClonObject(aleaPosDis);
+
+                        if (_objPersonas[aleaClon.EjeX, aleaClon.EjeY].Estado != EnumEstado.VACIO)
                         {
-                            var posDisponibles = AnalizarVecinas(x, y).ToArray();
-                            posDisponibles = posDisponibles.Where(pd => pd.Estado != EnumEstado.FALLECIDO && pd.Estado != EnumEstado.UCI).ToArray();
-
-                            if (posDisponibles.Length > 0)
+                            if (!_clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].IsModified)
                             {
-                                int indiceRandom = _random.Next(0, posDisponibles.Length);
-                                var aleaPosDis = posDisponibles[indiceRandom];
-                                var currentClon = GetClonObject(_clonObjPersonas[x, y]);
-                                var aleaClon = GetClonObject(aleaPosDis);
+                                _clonObjPersonas[x, y].Estado = aleaClon.Estado;
+                                _clonObjPersonas[x, y].NumDiasContagiado = aleaClon.NumDiasContagiado;
+                                _clonObjPersonas[x, y].NumDiasFallecido = aleaClon.NumDiasFallecido;
+                                _clonObjPersonas[x, y].NumDiasSano = aleaClon.NumDiasSano;
+                                _clonObjPersonas[x, y].NumDiasUCI = aleaClon.NumDiasUCI;
+                                _clonObjPersonas[x, y].IsModified = true;
 
-                                if (_objPersonas[aleaClon.EjeX, aleaClon.EjeY].Estado != EnumEstado.VACIO)
-                                {
-                                    if (!_clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].IsModified)
-                                    {
-                                        _clonObjPersonas[x, y].Estado = aleaClon.Estado;
-                                        _clonObjPersonas[x, y].NumDiasContagiado = aleaClon.NumDiasContagiado;
-                                        _clonObjPersonas[x, y].NumDiasFallecido = aleaClon.NumDiasFallecido;
-                                        _clonObjPersonas[x, y].NumDiasSano = aleaClon.NumDiasSano;
-                                        _clonObjPersonas[x, y].NumDiasUCI = aleaClon.NumDiasUCI;
-                                        _clonObjPersonas[x, y].IsModified = true;
-
-                                        _clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].Estado = currentClon.Estado;
-                                        _clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].NumDiasContagiado = currentClon.NumDiasContagiado;
-                                        _clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].NumDiasFallecido = currentClon.NumDiasFallecido;
-                                        _clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].NumDiasSano = currentClon.NumDiasSano;
-                                        _clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].NumDiasUCI = currentClon.NumDiasUCI;
-                                        _clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].IsModified = true;
-                                    }
-                                }
+                                _clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].Estado = currentClon.Estado;
+                                _clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].NumDiasContagiado = currentClon.NumDiasContagiado;
+                                _clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].NumDiasFallecido = currentClon.NumDiasFallecido;
+                                _clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].NumDiasSano = currentClon.NumDiasSano;
+                                _clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].NumDiasUCI = currentClon.NumDiasUCI;
+                                _clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].IsModified = true;
                             }
                         }
                     }
@@ -335,13 +376,7 @@ namespace AutomataCelular
                 }
                 else
                 {
-                    int vecinasVacias = AnalizarVecinasPorEstado(x, y, EnumEstado.VACIO);
-                    int vecinasSanas = AnalizarVecinasPorEstado(x, y, EnumEstado.SANO);
                     int vecinasContagiadas = AnalizarVecinasPorEstado(x, y, EnumEstado.CONTAGIADO);
-                    int vecinasAsintomaticas = AnalizarVecinasPorEstado(x, y, EnumEstado.ASINTOMATICO);
-                    int vecinasInmunes = AnalizarVecinasPorEstado(x, y, EnumEstado.INMUNE);
-                    int vecinasUCI = AnalizarVecinasPorEstado(x, y, EnumEstado.UCI);
-                    int vecinasFallecidas = AnalizarVecinasPorEstado(x, y, EnumEstado.FALLECIDO);
 
                     var formProbabilidadInfeccion = FormAutomata.Instance._probabilidadInfeccion;
                     var formVecinasParaInfeccion = FormAutomata.Instance._VecinasNecesariasParaInfeccion;
@@ -350,8 +385,6 @@ namespace AutomataCelular
                         newStatus = EnumEstado.CONTAGIADO;
                     else
                         newStatus = EnumEstado.SANO;
-
-                    // FALTA CONFIGURAR LAS DEMAS REGLAS
                 }
             }
             else

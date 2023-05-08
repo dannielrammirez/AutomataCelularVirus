@@ -193,7 +193,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Automata.cs" />
-    <Compile Include="Coordenadas.cs" />
     <Compile Include="EnumEstado.cs" />
     <Compile Include="FormAutomata.cs">
       <SubType>Form</SubType>
