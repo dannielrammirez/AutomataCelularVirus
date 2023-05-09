@@ -8,6 +8,8 @@
         ASINTOMATICO = 3,
         INMUNE = 4,
         UCI = 5,
-        FALLECIDO = 6
+        FALLECIDO = 6,
+        LIMITE = 7,
+        INDETERMINADO = 8
     }
 }

@@ -153,6 +153,36 @@
   <data name="plGeneral.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
+  <data name="checkUsarMapa.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkUsarMapa.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkUsarMapa.Location" type="System.Drawing.Point, System.Drawing">
+    <value>229, 487</value>
+  </data>
+  <data name="checkUsarMapa.Size" type="System.Drawing.Size, System.Drawing">
+    <value>129, 21</value>
+  </data>
+  <data name="checkUsarMapa.TabIndex" type="System.Int32, mscorlib">
+    <value>73</value>
+  </data>
+  <data name="checkUsarMapa.Text" xml:space="preserve">
+    <value>Usar Mapa (1 px)</value>
+  </data>
+  <data name="&gt;&gt;checkUsarMapa.Name" xml:space="preserve">
+    <value>checkUsarMapa</value>
+  </data>
+  <data name="&gt;&gt;checkUsarMapa.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkUsarMapa.Parent" xml:space="preserve">
+    <value>plGeneral</value>
+  </data>
+  <data name="&gt;&gt;checkUsarMapa.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="checkMovimiento.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -181,7 +211,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;checkMovimiento.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="checkInfeccion.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -208,7 +238,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;checkInfeccion.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="label11.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -238,7 +268,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="tbProbabilidadMovimiento.Location" type="System.Drawing.Point, System.Drawing">
     <value>253, 244</value>
@@ -262,7 +292,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;tbProbabilidadMovimiento.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="btnRetroceder.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -298,7 +328,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;btnRetroceder.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="lblVacios.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -328,7 +358,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;lblVacios.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="label12.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -358,7 +388,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="tbProbabilidadInfeccion.Location" type="System.Drawing.Point, System.Drawing">
     <value>253, 306</value>
@@ -382,7 +412,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;tbProbabilidadInfeccion.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="label10.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -412,7 +442,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="tbInfeccionesNecesarias.Location" type="System.Drawing.Point, System.Drawing">
     <value>253, 275</value>
@@ -436,7 +466,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;tbInfeccionesNecesarias.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="btnResumenEvolucion.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -469,7 +499,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;btnResumenEvolucion.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -499,7 +529,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="tbDiasEvolucionVirus.Location" type="System.Drawing.Point, System.Drawing">
     <value>253, 337</value>
@@ -523,7 +553,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;tbDiasEvolucionVirus.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>13</value>
   </data>
   <data name="cbTamPixel.Items" xml:space="preserve">
     <value>16px</value>
@@ -562,7 +592,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;cbTamPixel.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>14</value>
   </data>
   <data name="btnAvanzar.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -598,7 +628,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;btnAvanzar.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>15</value>
   </data>
   <data name="lblDia.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -628,7 +658,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;lblDia.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>16</value>
   </data>
   <data name="btnPausarSimulacion.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -664,7 +694,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;btnPausarSimulacion.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>17</value>
   </data>
   <data name="btnStartProcess.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -700,7 +730,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;btnStartProcess.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>18</value>
   </data>
   <data name="lblFallecidos.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -730,7 +760,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;lblFallecidos.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>19</value>
   </data>
   <data name="lblHospitalizados.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -760,7 +790,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;lblHospitalizados.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>20</value>
   </data>
   <data name="lblInmunes.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -790,7 +820,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;lblInmunes.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>21</value>
   </data>
   <data name="lblAsintomaticos.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -820,7 +850,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;lblAsintomaticos.ZOrder" xml:space="preserve">
-    <value>21</value>
+    <value>22</value>
   </data>
   <data name="lblContagiados.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -850,7 +880,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;lblContagiados.ZOrder" xml:space="preserve">
-    <value>22</value>
+    <value>23</value>
   </data>
   <data name="lblSanos.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -880,7 +910,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;lblSanos.ZOrder" xml:space="preserve">
-    <value>23</value>
+    <value>24</value>
   </data>
   <data name="btnPintarIniciales.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -913,7 +943,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;btnPintarIniciales.ZOrder" xml:space="preserve">
-    <value>24</value>
+    <value>25</value>
   </data>
   <data name="label9.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -943,7 +973,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
-    <value>25</value>
+    <value>26</value>
   </data>
   <data name="label8.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -973,7 +1003,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
-    <value>26</value>
+    <value>27</value>
   </data>
   <data name="label7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1003,7 +1033,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
-    <value>27</value>
+    <value>28</value>
   </data>
   <data name="label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1033,7 +1063,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>28</value>
+    <value>29</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1063,7 +1093,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>29</value>
+    <value>30</value>
   </data>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1093,7 +1123,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>30</value>
+    <value>31</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1123,7 +1153,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>31</value>
+    <value>32</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1150,7 +1180,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>32</value>
+    <value>33</value>
   </data>
   <data name="tbPorInmunesIniciales.Location" type="System.Drawing.Point, System.Drawing">
     <value>254, 135</value>
@@ -1171,7 +1201,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;tbPorInmunesIniciales.ZOrder" xml:space="preserve">
-    <value>33</value>
+    <value>34</value>
   </data>
   <data name="tbPorFallecidosIniciales.Location" type="System.Drawing.Point, System.Drawing">
     <value>254, 197</value>
@@ -1192,7 +1222,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;tbPorFallecidosIniciales.ZOrder" xml:space="preserve">
-    <value>34</value>
+    <value>35</value>
   </data>
   <data name="tbPorUCIIniciales.Location" type="System.Drawing.Point, System.Drawing">
     <value>254, 166</value>
@@ -1213,7 +1243,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;tbPorUCIIniciales.ZOrder" xml:space="preserve">
-    <value>35</value>
+    <value>36</value>
   </data>
   <data name="tbProbabilidadHospitalizacion.Location" type="System.Drawing.Point, System.Drawing">
     <value>253, 370</value>
@@ -1237,7 +1267,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;tbProbabilidadHospitalizacion.ZOrder" xml:space="preserve">
-    <value>36</value>
+    <value>37</value>
   </data>
   <data name="tbProbabilidadMorir.Location" type="System.Drawing.Point, System.Drawing">
     <value>253, 401</value>
@@ -1261,7 +1291,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;tbProbabilidadMorir.ZOrder" xml:space="preserve">
-    <value>37</value>
+    <value>38</value>
   </data>
   <data name="tbPorAsintomaticosIniciales.Location" type="System.Drawing.Point, System.Drawing">
     <value>254, 104</value>
@@ -1282,7 +1312,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;tbPorAsintomaticosIniciales.ZOrder" xml:space="preserve">
-    <value>38</value>
+    <value>39</value>
   </data>
   <data name="tbPorContagiadosIniciales.Location" type="System.Drawing.Point, System.Drawing">
     <value>254, 73</value>
@@ -1303,7 +1333,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;tbPorContagiadosIniciales.ZOrder" xml:space="preserve">
-    <value>39</value>
+    <value>40</value>
   </data>
   <data name="tbPorSanosIniciales.Location" type="System.Drawing.Point, System.Drawing">
     <value>254, 42</value>
@@ -1324,7 +1354,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;tbPorSanosIniciales.ZOrder" xml:space="preserve">
-    <value>40</value>
+    <value>41</value>
   </data>
   <data name="plPictureBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -1351,7 +1381,7 @@
     <value>plGeneral</value>
   </data>
   <data name="&gt;&gt;plPictureBox.ZOrder" xml:space="preserve">
-    <value>41</value>
+    <value>42</value>
   </data>
   <data name="plGeneral.Location" type="System.Drawing.Point, System.Drawing">
     <value>14, 16</value>

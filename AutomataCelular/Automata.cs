@@ -79,7 +79,7 @@ namespace AutomataCelular
         {
             _random = GetThreadRandom();
 
-            if (_objPersonas[x, y].Estado != EnumEstado.FALLECIDO && _objPersonas[x, y].Estado != EnumEstado.UCI)
+            if (_objPersonas[x, y].Estado != EnumEstado.FALLECIDO && _objPersonas[x, y].Estado != EnumEstado.UCI && _objPersonas[x, y].Estado != EnumEstado.LIMITE && _objPersonas[x, y].Estado != EnumEstado.INDETERMINADO)
             {
                 if (_random.Next(0, 100) > FormAutomata.Instance._probabilidadMovimiento)
                 {
@@ -93,7 +93,7 @@ namespace AutomataCelular
                         var currentClon = GetClonObject(_clonObjPersonas[x, y]);
                         var aleaClon = GetClonObject(aleaPosDis);
 
-                        if (_objPersonas[aleaClon.EjeX, aleaClon.EjeY].Estado != EnumEstado.VACIO)
+                        if (_objPersonas[aleaClon.EjeX, aleaClon.EjeY].Estado != EnumEstado.VACIO && _objPersonas[aleaClon.EjeX, aleaClon.EjeY].Estado != EnumEstado.LIMITE && _objPersonas[aleaClon.EjeX, aleaClon.EjeY].Estado != EnumEstado.INDETERMINADO)
                         {
                             if (!_clonObjPersonas[aleaClon.EjeX, aleaClon.EjeY].IsModified)
                             {
@@ -283,7 +283,7 @@ namespace AutomataCelular
             var randomMorir = _random.Next(0, 100);
             var randomInfeccion = _random.Next(0, 100);
 
-            if (_objPersonas[x, y].Estado != EnumEstado.INMUNE)
+            if (_objPersonas[x, y].Estado != EnumEstado.INMUNE && _objPersonas[x, y].Estado != EnumEstado.LIMITE && _objPersonas[x, y].Estado != EnumEstado.FALLECIDO && _objPersonas[x, y].Estado != EnumEstado.INDETERMINADO)
             {
                 if (_objPersonas[x, y].Estado == EnumEstado.CONTAGIADO)
                 {
@@ -352,7 +352,7 @@ namespace AutomataCelular
                 }
             }
             else
-                newStatus = EnumEstado.INMUNE;
+                newStatus = _objPersonas[x, y].Estado;
 
             _clonObjPersonas[x, y].Estado = newStatus;
         }

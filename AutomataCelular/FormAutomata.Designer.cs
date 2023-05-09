@@ -33,6 +33,8 @@
             this.pbAutomata = new System.Windows.Forms.PictureBox();
             this.timerAutomata = new System.Windows.Forms.Timer(this.components);
             this.plGeneral = new System.Windows.Forms.Panel();
+            this.checkUsarMapa = new System.Windows.Forms.CheckBox();
+            this.checkMovimiento = new System.Windows.Forms.CheckBox();
             this.checkInfeccion = new System.Windows.Forms.CheckBox();
             this.label11 = new System.Windows.Forms.Label();
             this.tbProbabilidadMovimiento = new System.Windows.Forms.TextBox();
@@ -76,7 +78,6 @@
             this.plPictureBox = new System.Windows.Forms.Panel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tSStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.checkMovimiento = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbAutomata)).BeginInit();
             this.plGeneral.SuspendLayout();
             this.plPictureBox.SuspendLayout();
@@ -98,6 +99,7 @@
             // plGeneral
             // 
             resources.ApplyResources(this.plGeneral, "plGeneral");
+            this.plGeneral.Controls.Add(this.checkUsarMapa);
             this.plGeneral.Controls.Add(this.checkMovimiento);
             this.plGeneral.Controls.Add(this.checkInfeccion);
             this.plGeneral.Controls.Add(this.label11);
@@ -141,6 +143,18 @@
             this.plGeneral.Controls.Add(this.tbPorSanosIniciales);
             this.plGeneral.Controls.Add(this.plPictureBox);
             this.plGeneral.Name = "plGeneral";
+            // 
+            // checkUsarMapa
+            // 
+            resources.ApplyResources(this.checkUsarMapa, "checkUsarMapa");
+            this.checkUsarMapa.Name = "checkUsarMapa";
+            this.checkUsarMapa.UseVisualStyleBackColor = true;
+            // 
+            // checkMovimiento
+            // 
+            resources.ApplyResources(this.checkMovimiento, "checkMovimiento");
+            this.checkMovimiento.Name = "checkMovimiento";
+            this.checkMovimiento.UseVisualStyleBackColor = true;
             // 
             // checkInfeccion
             // 
@@ -218,6 +232,7 @@
             resources.GetString("cbTamPixel.Items4")});
             resources.ApplyResources(this.cbTamPixel, "cbTamPixel");
             this.cbTamPixel.Name = "cbTamPixel";
+            this.cbTamPixel.SelectedIndexChanged += new System.EventHandler(this.cbTamPixel_SelectedIndexChanged);
             // 
             // btnAvanzar
             // 
@@ -380,12 +395,6 @@
             this.tSStatusLabel.Name = "tSStatusLabel";
             resources.ApplyResources(this.tSStatusLabel, "tSStatusLabel");
             // 
-            // checkMovimiento
-            // 
-            resources.ApplyResources(this.checkMovimiento, "checkMovimiento");
-            this.checkMovimiento.Name = "checkMovimiento";
-            this.checkMovimiento.UseVisualStyleBackColor = true;
-            // 
             // FormAutomata
             // 
             resources.ApplyResources(this, "$this");
@@ -454,6 +463,7 @@
         private System.Windows.Forms.TextBox tbProbabilidadMovimiento;
         private System.Windows.Forms.CheckBox checkInfeccion;
         private System.Windows.Forms.CheckBox checkMovimiento;
+        private System.Windows.Forms.CheckBox checkUsarMapa;
     }
 }
 

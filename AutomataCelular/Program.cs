@@ -13,6 +13,7 @@ namespace AutomataCelular
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new test());
             Application.Run(new FormAutomata());
         }
     }

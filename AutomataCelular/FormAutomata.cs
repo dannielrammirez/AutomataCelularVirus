@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using static System.Windows.Forms.LinkLabel;
 
 namespace AutomataCelular
 {
@@ -69,12 +71,12 @@ namespace AutomataCelular
 
             try
             {
-                _numSanos = getValFromPorc(tbPorSanosIniciales.Text) * factorMultiplicador;
-                _numContagiados = getValFromPorc(tbPorContagiadosIniciales.Text) * factorMultiplicador;
-                _numAsintomaticos = getValFromPorc(tbPorAsintomaticosIniciales.Text) * factorMultiplicador;
-                _numInmunes = getValFromPorc(tbPorInmunesIniciales.Text) * factorMultiplicador;
-                _numHospitalizados = getValFromPorc(tbPorUCIIniciales.Text) * factorMultiplicador;
-                _numFallecidos = getValFromPorc(tbPorFallecidosIniciales.Text) * factorMultiplicador;
+                _numSanos = getValFromPorc(_numPoblacion, tbPorSanosIniciales.Text) * factorMultiplicador;
+                _numContagiados = getValFromPorc(_numPoblacion, tbPorContagiadosIniciales.Text) * factorMultiplicador;
+                _numAsintomaticos = getValFromPorc(_numPoblacion, tbPorAsintomaticosIniciales.Text) * factorMultiplicador;
+                _numInmunes = getValFromPorc(_numPoblacion, tbPorInmunesIniciales.Text) * factorMultiplicador;
+                _numHospitalizados = getValFromPorc(_numPoblacion, tbPorUCIIniciales.Text) * factorMultiplicador;
+                _numFallecidos = getValFromPorc(_numPoblacion, tbPorFallecidosIniciales.Text) * factorMultiplicador;
                 _probabilidadMorir = !string.IsNullOrEmpty(tbProbabilidadMorir.Text) ? int.Parse(tbProbabilidadMorir.Text) : 0;
                 _probabilidadHospitalizacion = !string.IsNullOrEmpty(tbProbabilidadHospitalizacion.Text) ? int.Parse(tbProbabilidadHospitalizacion.Text) : 0;
                 _probabilidadInfeccion = !string.IsNullOrEmpty(tbProbabilidadInfeccion.Text) ? int.Parse(tbProbabilidadInfeccion.Text) : 50;
@@ -95,7 +97,7 @@ namespace AutomataCelular
             return response;
         }
 
-        private double getValFromPorc(string prmStrValPorcentaje)
+        private double getValFromPorc(double totalPoblacion, string prmStrValPorcentaje)
         {
             double response = 0;
             int vlrPorcentaje = 0;
@@ -113,7 +115,7 @@ namespace AutomataCelular
 
                 if (isValid)
                 {
-                    response = (vlrPorcentaje * _numPoblacion) / 100;
+                    response = (vlrPorcentaje * totalPoblacion) / 100;
                 }
             }
 
@@ -122,28 +124,75 @@ namespace AutomataCelular
 
         private void PindarDatos()
         {
-            PintarPixelAleatorio(_numSanos, EnumEstado.SANO);
-            PintarPixelAleatorio(_numContagiados, EnumEstado.CONTAGIADO);
-            PintarPixelAleatorio(_numAsintomaticos, EnumEstado.ASINTOMATICO);
-            PintarPixelAleatorio(_numInmunes, EnumEstado.INMUNE);
-            PintarPixelAleatorio(_numHospitalizados, EnumEstado.UCI);
-            PintarPixelAleatorio(_numFallecidos, EnumEstado.FALLECIDO);
+            int grupoPixeles = 0;
+            int totalPoblacion = 0;
+            int totalLimite = 0;
+            int totalIndeterminados = 0;
+
+            if (checkUsarMapa.Checked)
+            {
+                grupoPixeles = 1;
+                arrayPersonas = PatronInicial.MapaColombia;
+
+                for (int x = 0; x < longitud; x++)
+                {
+                    for (int y = 0; y < longitud; y++)
+                    {
+                        if (arrayPersonas[x, y] == 0)
+                        {
+                            Objpersonas[x, y].Estado = EnumEstado.INDETERMINADO;
+                            totalIndeterminados++;
+                        }
+                        else if (arrayPersonas[x, y] == 3)
+                        {
+                            Objpersonas[x, y].Estado = EnumEstado.LIMITE;
+                            totalLimite++;
+                        }
+                        else
+                        {
+                            Objpersonas[x, y].Estado = EnumEstado.VACIO;
+                            totalPoblacion++;
+                        }
+
+                    }
+                }
+                _numSanos = getValFromPorc(totalPoblacion, tbPorSanosIniciales.Text);
+                _numContagiados = getValFromPorc(totalPoblacion, tbPorContagiadosIniciales.Text);
+
+
+                //int cant
+
+                PintarPixelAleatorio(_numSanos, EnumEstado.SANO, grupoPixeles);
+                PintarPixelAleatorio(_numContagiados, EnumEstado.CONTAGIADO, grupoPixeles);
+            }
+            else
+            {
+                grupoPixeles = 0;
+                PintarPixelAleatorio(_numSanos, EnumEstado.SANO, grupoPixeles);
+                PintarPixelAleatorio(_numContagiados, EnumEstado.CONTAGIADO, grupoPixeles);
+                PintarPixelAleatorio(_numAsintomaticos, EnumEstado.ASINTOMATICO, grupoPixeles);
+                PintarPixelAleatorio(_numInmunes, EnumEstado.INMUNE, grupoPixeles);
+                PintarPixelAleatorio(_numHospitalizados, EnumEstado.UCI, grupoPixeles);
+                PintarPixelAleatorio(_numFallecidos, EnumEstado.FALLECIDO, grupoPixeles);
+            }
+
             PintarMatriz();
         }
 
-        private void PintarPixelAleatorio(double numMaxPintados, EnumEstado estadoPintar)
+        private void PintarPixelAleatorio(double numMaxPintados, EnumEstado estadoPintar, int grupoPixeles)
         {
             int numPintados = 0;
             Random random = new Random();
 
-            while (numPintados < numMaxPintados)
+            while (numPintados < (int)numMaxPintados)
             {
                 int ejeX = random.Next(0, longitud);
                 int ejeY = random.Next(0, longitud);
 
-                if (arrayPersonas[ejeX, ejeY] == 0)
+                if (arrayPersonas[ejeX, ejeY] == grupoPixeles && !Objpersonas[ejeX, ejeY].IsPaint)
                 {
                     Objpersonas[ejeX, ejeY].Estado = estadoPintar;
+                    Objpersonas[ejeX, ejeY].IsPaint = true;
                     arrayPersonas[ejeX, ejeY] = 1;
                     numPintados++;
                 }
@@ -168,17 +217,13 @@ namespace AutomataCelular
             bmp = new Bitmap(pbAutomata.Width, pbAutomata.Height);
 
             for (int x = 0; x < longitud; x++)
-            {
                 for (int y = 0; y < longitud; y++)
                 {
                     var tempPersona = Objpersonas[x, y];
                     var tempColor = getColorPixel(tempPersona.Estado);
-
                     Objpersonas[x, y].IsModified = false;
-
                     PintarPixel(bmp, x, y, tempColor);
                 }
-            }
         }
 
         private void PintarPixel(Bitmap bmp, int x, int y, Color prmColor)
@@ -218,6 +263,9 @@ namespace AutomataCelular
                     response = Color.Fuchsia;
                     break;
                 case EnumEstado.FALLECIDO:
+                    response = Color.Brown;
+                    break;
+                case EnumEstado.LIMITE:
                     response = Color.Black;
                     break;
                 default:
@@ -434,6 +482,22 @@ namespace AutomataCelular
             btnRetroceder.Enabled = false;
 
             tSStatusLabel.Text = $"Retroceder - Tiempo de ejecución: (m/s) {stopwatch.ElapsedMilliseconds}";
+        }
+
+        private void cbTamPixel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var tempTamanio = cbTamPixel.Text.Replace("px", "");
+            int tamPixel = int.Parse(tempTamanio);
+
+            if (tamPixel != 1)
+            {
+                checkUsarMapa.Visible = false;
+                checkUsarMapa.Checked = false;
+            }
+            else
+            {
+                checkUsarMapa.Visible = true;
+            }
         }
     }
 }
