@@ -5,7 +5,7 @@ namespace AutomataCelular
 {
     public partial class ResumenAutomata : Form
     {
-        List<ResumenDia> _resumenEvolucion;
+        private readonly List<ResumenDia> _resumenEvolucion;
         public ResumenAutomata(List<ResumenDia> resumenEvolucion)
         {
             InitializeComponent();
@@ -14,10 +14,10 @@ namespace AutomataCelular
 
         private void ResumenAutomata_Load(object sender, System.EventArgs e)
         {
-            fillChart();
+            FillChart();
         }
 
-        private void fillChart()
+        private void FillChart()
         {
             foreach (var item in _resumenEvolucion)
             {

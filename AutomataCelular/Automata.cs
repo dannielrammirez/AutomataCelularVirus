@@ -7,7 +7,7 @@ namespace AutomataCelular
 {
     public class Automata
     {
-        FormAutomata _formAutomata;
+        private readonly FormAutomata _formAutomata;
         public Persona[,] _objPersonas;
         private Persona[,] _clonObjPersonas;
 
@@ -17,7 +17,7 @@ namespace AutomataCelular
 
         private static int seed = Environment.TickCount;
 
-        private static ThreadLocal<Random> randomWrapper = new ThreadLocal<Random>(() =>
+        private readonly static ThreadLocal<Random> randomWrapper = new ThreadLocal<Random>(() =>
             new Random(Interlocked.Increment(ref seed))
         );
 
@@ -37,8 +37,6 @@ namespace AutomataCelular
 
         public Persona[,] Movimiento()
         {
-            Persona[][] response;
-
             _clonObjPersonas = GetClonArrayObject(_objPersonas);
 
             MoverIndividuo();
@@ -48,8 +46,6 @@ namespace AutomataCelular
 
         public Persona[,] Process()
         {
-            Persona[][] response;
-
             _clonObjPersonas = GetClonArrayObject(_objPersonas);
 
             for (int x = 0; x < _longitud; x++)
@@ -315,10 +311,7 @@ namespace AutomataCelular
                     var vlrProbabilidadMorir = double.Parse(randomMorir.ToString());
 
                     if (vlrProbabilidadMorir < _formAutomata._probabilidadMorir)
-                    {
                         newStatus = EnumEstado.FALLECIDO;
-                        randomMorir = _random.Next(0, 100);
-                    }
                     else
                     {
                         if (_objPersonas[x, y].NumDiasContagiado >= FormAutomata.Instance._diasEvolucionVirus)

@@ -60,23 +60,21 @@ namespace AutomataCelular
             PintarMatriz();
         }
 
-        private void timerAutomata_Tick(object sender, EventArgs e)
+        private void TimerAutomata_Tick(object sender, EventArgs e)
         {
             ProcessEvolucion();
         }
 
         private bool ValidarInformacionInicial()
         {
-            bool response = false;
-
             try
             {
-                _numSanos = getValFromPorc(_numPoblacion, tbPorSanosIniciales.Text) * factorMultiplicador;
-                _numContagiados = getValFromPorc(_numPoblacion, tbPorContagiadosIniciales.Text) * factorMultiplicador;
-                _numAsintomaticos = getValFromPorc(_numPoblacion, tbPorAsintomaticosIniciales.Text) * factorMultiplicador;
-                _numInmunes = getValFromPorc(_numPoblacion, tbPorInmunesIniciales.Text) * factorMultiplicador;
-                _numHospitalizados = getValFromPorc(_numPoblacion, tbPorUCIIniciales.Text) * factorMultiplicador;
-                _numFallecidos = getValFromPorc(_numPoblacion, tbPorFallecidosIniciales.Text) * factorMultiplicador;
+                _numSanos = GetValFromPorc(_numPoblacion, tbPorSanosIniciales.Text) * factorMultiplicador;
+                _numContagiados = GetValFromPorc(_numPoblacion, tbPorContagiadosIniciales.Text) * factorMultiplicador;
+                _numAsintomaticos = GetValFromPorc(_numPoblacion, tbPorAsintomaticosIniciales.Text) * factorMultiplicador;
+                _numInmunes = GetValFromPorc(_numPoblacion, tbPorInmunesIniciales.Text) * factorMultiplicador;
+                _numHospitalizados = GetValFromPorc(_numPoblacion, tbPorUCIIniciales.Text) * factorMultiplicador;
+                _numFallecidos = GetValFromPorc(_numPoblacion, tbPorFallecidosIniciales.Text) * factorMultiplicador;
                 _probabilidadMorir = !string.IsNullOrEmpty(tbProbabilidadMorir.Text) ? int.Parse(tbProbabilidadMorir.Text) : 0;
                 _probabilidadHospitalizacion = !string.IsNullOrEmpty(tbProbabilidadHospitalizacion.Text) ? int.Parse(tbProbabilidadHospitalizacion.Text) : 0;
                 _probabilidadInfeccion = !string.IsNullOrEmpty(tbProbabilidadInfeccion.Text) ? int.Parse(tbProbabilidadInfeccion.Text) : 50;
@@ -87,36 +85,26 @@ namespace AutomataCelular
 
                 _VecinasNecesariasParaInfeccion = int.Parse(tbInfeccionesNecesarias.Text);
 
-                response = true;
+                return true;
             }
             catch (Exception ex)
             {
-                response = false;
+                Console.WriteLine($"Excepcion: FormAutomara->ValidarInformacionInicial: {ex}");
+                return false;
             }
-
-            return response;
         }
 
-        private double getValFromPorc(double totalPoblacion, string prmStrValPorcentaje)
+        private double GetValFromPorc(double totalPoblacion, string prmStrValPorcentaje)
         {
             double response = 0;
-            int vlrPorcentaje = 0;
-            int strValPorcentaje = 0;
-            bool isValid = false;
 
             if (string.IsNullOrEmpty(prmStrValPorcentaje))
-            {
-                strValPorcentaje = 0;
                 response = 0;
-            }
             else
             {
-                isValid = int.TryParse(prmStrValPorcentaje, out vlrPorcentaje);
-
+                bool isValid = int.TryParse(prmStrValPorcentaje, out int vlrPorcentaje);
                 if (isValid)
-                {
-                    response = (vlrPorcentaje * totalPoblacion) / 100;
-                }
+                    return (vlrPorcentaje * totalPoblacion) / 100;
             }
 
             return response;
@@ -124,11 +112,11 @@ namespace AutomataCelular
 
         private void PindarDatos()
         {
-            int grupoPixeles = 0;
             int totalPoblacion = 0;
             int totalLimite = 0;
             int totalIndeterminados = 0;
 
+            int grupoPixeles;
             if (checkUsarMapa.Checked)
             {
                 grupoPixeles = 1;
@@ -156,8 +144,8 @@ namespace AutomataCelular
 
                     }
                 }
-                _numSanos = getValFromPorc(totalPoblacion, tbPorSanosIniciales.Text);
-                _numContagiados = getValFromPorc(totalPoblacion, tbPorContagiadosIniciales.Text);
+                _numSanos = GetValFromPorc(totalPoblacion, tbPorSanosIniciales.Text);
+                _numContagiados = GetValFromPorc(totalPoblacion, tbPorContagiadosIniciales.Text);
 
 
                 //int cant
@@ -220,7 +208,7 @@ namespace AutomataCelular
                 for (int y = 0; y < longitud; y++)
                 {
                     var tempPersona = Objpersonas[x, y];
-                    var tempColor = getColorPixel(tempPersona.Estado);
+                    var tempColor = GetColorPixel(tempPersona.Estado);
                     Objpersonas[x, y].IsModified = false;
                     PintarPixel(bmp, x, y, tempColor);
                 }
@@ -238,10 +226,10 @@ namespace AutomataCelular
                 }
         }
 
-        private Color getColorPixel(EnumEstado prmEstado)
+        private Color GetColorPixel(EnumEstado prmEstado)
         {
-            var response = new Color();
-
+            _ = new Color();
+            Color response;
             switch (prmEstado)
             {
                 case EnumEstado.VACIO:
@@ -276,8 +264,16 @@ namespace AutomataCelular
             return response;
         }
 
-        private void btnPintarIniciales_Click(object sender, EventArgs e)
+        private void BtnPintarIniciales_Click(object sender, EventArgs e)
         {
+            int sumaPorcentajes = GetSumaPorcentajes();
+
+            if (sumaPorcentajes > 100)
+            {
+                MessageBox.Show("La suma de los porcentajes es mayor a 100, verifique la información e intente nuevamente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
@@ -303,14 +299,34 @@ namespace AutomataCelular
                 pbAutomata.Image = bmp;
             }
             else
-                MessageBox.Show("Datos incorrectos");
+                MessageBox.Show("Datos incorrectos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             stopwatch.Stop();
             tSStatusLabel.Text = $"Pintar Patron Inicial - Tiempo de ejecución: (m/s) {stopwatch.ElapsedMilliseconds}";
         }
 
+        private int GetSumaPorcentajes()
+        {
+            int response = GetValorInput(tbPorSanosIniciales.Text) + GetValorInput(tbPorContagiadosIniciales.Text) + GetValorInput(tbPorAsintomaticosIniciales.Text);
+            response += GetValorInput(tbPorInmunesIniciales.Text) + GetValorInput(tbPorUCIIniciales.Text) + GetValorInput(tbPorFallecidosIniciales.Text);
+
+            return response;
+        }
+
+        private int GetValorInput(string prmValorInput)
+        {
+            int response = string.IsNullOrEmpty(prmValorInput) ? 0 : int.Parse(prmValorInput);
+            return response;
+        }
+
         private void CargarTamanios()
         {
+            if(cbTamPixel.Text == "Seleccionar...")
+            {
+                MessageBox.Show("Ingrese un valor para el tamaño del pixel.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             var tempTamanio = cbTamPixel.Text.Replace("px", "");
             int tamPixel = int.Parse(tempTamanio);
 
@@ -383,7 +399,7 @@ namespace AutomataCelular
             lblVacios.Text = $"Vacios: {numVacios}";
         }
 
-        private void btnStartProcess_Click(object sender, EventArgs e)
+        private void BtnStartProcess_Click(object sender, EventArgs e)
         {
             timerAutomata.Enabled = true;
             btnPausarSimulacion.Enabled = true;
@@ -440,14 +456,14 @@ namespace AutomataCelular
             tSStatusLabel.Text = $"Tiempo de ejecución: (m/s) {stopwatch.ElapsedMilliseconds}";
         }
 
-        private void btnPausarSimulacion_Click(object sender, EventArgs e)
+        private void BtnPausarSimulacion_Click(object sender, EventArgs e)
         {
             btnPausarSimulacion.Enabled = false;
             btnStartProcess.Enabled = true;
             timerAutomata.Enabled = false;
         }
 
-        private void btnAvanzar_Click(object sender, EventArgs e)
+        private void BtnAvanzar_Click(object sender, EventArgs e)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -458,15 +474,15 @@ namespace AutomataCelular
             tSStatusLabel.Text = $"Avanzar 1 dia - Tiempo de ejecución: (m/s) {stopwatch.ElapsedMilliseconds}";
         }
 
-        private void btnResumenEvolucion_Click(object sender, EventArgs e)
+        private void BtnResumenEvolucion_Click(object sender, EventArgs e)
         {
             var objFormResumen = new ResumenAutomata(_resumenDia);
             objFormResumen.ShowDialog();
         }
 
-        private void btnRetroceder_Click(object sender, EventArgs e)
+        private void BtnRetroceder_Click(object sender, EventArgs e)
         {
-            countDias = countDias - 2;
+            countDias -= 2;
             ShowResumen();
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -484,7 +500,7 @@ namespace AutomataCelular
             tSStatusLabel.Text = $"Retroceder - Tiempo de ejecución: (m/s) {stopwatch.ElapsedMilliseconds}";
         }
 
-        private void cbTamPixel_SelectedIndexChanged(object sender, EventArgs e)
+        private void CbTamPixel_SelectedIndexChanged(object sender, EventArgs e)
         {
             var tempTamanio = cbTamPixel.Text.Replace("px", "");
             int tamPixel = int.Parse(tempTamanio);

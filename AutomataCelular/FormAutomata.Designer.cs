@@ -94,7 +94,7 @@
             // timerAutomata
             // 
             this.timerAutomata.Interval = 500;
-            this.timerAutomata.Tick += new System.EventHandler(this.timerAutomata_Tick);
+            this.timerAutomata.Tick += new System.EventHandler(this.TimerAutomata_Tick);
             // 
             // plGeneral
             // 
@@ -177,7 +177,7 @@
             resources.ApplyResources(this.btnRetroceder, "btnRetroceder");
             this.btnRetroceder.Name = "btnRetroceder";
             this.btnRetroceder.UseVisualStyleBackColor = true;
-            this.btnRetroceder.Click += new System.EventHandler(this.btnRetroceder_Click);
+            this.btnRetroceder.Click += new System.EventHandler(this.BtnRetroceder_Click);
             // 
             // lblVacios
             // 
@@ -209,7 +209,7 @@
             resources.ApplyResources(this.btnResumenEvolucion, "btnResumenEvolucion");
             this.btnResumenEvolucion.Name = "btnResumenEvolucion";
             this.btnResumenEvolucion.UseVisualStyleBackColor = true;
-            this.btnResumenEvolucion.Click += new System.EventHandler(this.btnResumenEvolucion_Click);
+            this.btnResumenEvolucion.Click += new System.EventHandler(this.BtnResumenEvolucion_Click);
             // 
             // label1
             // 
@@ -232,14 +232,14 @@
             resources.GetString("cbTamPixel.Items4")});
             resources.ApplyResources(this.cbTamPixel, "cbTamPixel");
             this.cbTamPixel.Name = "cbTamPixel";
-            this.cbTamPixel.SelectedIndexChanged += new System.EventHandler(this.cbTamPixel_SelectedIndexChanged);
+            this.cbTamPixel.SelectedIndexChanged += new System.EventHandler(this.CbTamPixel_SelectedIndexChanged);
             // 
             // btnAvanzar
             // 
             resources.ApplyResources(this.btnAvanzar, "btnAvanzar");
             this.btnAvanzar.Name = "btnAvanzar";
             this.btnAvanzar.UseVisualStyleBackColor = true;
-            this.btnAvanzar.Click += new System.EventHandler(this.btnAvanzar_Click);
+            this.btnAvanzar.Click += new System.EventHandler(this.BtnAvanzar_Click);
             // 
             // lblDia
             // 
@@ -251,14 +251,14 @@
             resources.ApplyResources(this.btnPausarSimulacion, "btnPausarSimulacion");
             this.btnPausarSimulacion.Name = "btnPausarSimulacion";
             this.btnPausarSimulacion.UseVisualStyleBackColor = true;
-            this.btnPausarSimulacion.Click += new System.EventHandler(this.btnPausarSimulacion_Click);
+            this.btnPausarSimulacion.Click += new System.EventHandler(this.BtnPausarSimulacion_Click);
             // 
             // btnStartProcess
             // 
             resources.ApplyResources(this.btnStartProcess, "btnStartProcess");
             this.btnStartProcess.Name = "btnStartProcess";
             this.btnStartProcess.UseVisualStyleBackColor = true;
-            this.btnStartProcess.Click += new System.EventHandler(this.btnStartProcess_Click);
+            this.btnStartProcess.Click += new System.EventHandler(this.BtnStartProcess_Click);
             // 
             // lblFallecidos
             // 
@@ -295,7 +295,7 @@
             resources.ApplyResources(this.btnPintarIniciales, "btnPintarIniciales");
             this.btnPintarIniciales.Name = "btnPintarIniciales";
             this.btnPintarIniciales.UseVisualStyleBackColor = true;
-            this.btnPintarIniciales.Click += new System.EventHandler(this.btnPintarIniciales_Click);
+            this.btnPintarIniciales.Click += new System.EventHandler(this.BtnPintarIniciales_Click);
             // 
             // label9
             // 
