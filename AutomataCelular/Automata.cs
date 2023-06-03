@@ -14,6 +14,7 @@ namespace AutomataCelular
         public int[,] _arrayPersonas;
         public int _longitud;
         Random _random;
+        const int CONST_NUM_DIAS_UCI = 7;
 
         private static int seed = Environment.TickCount;
 
@@ -35,27 +36,12 @@ namespace AutomataCelular
             _random = new Random();
         }
 
+        #region Proceso de Movimiento
         public Persona[,] Movimiento()
         {
             _clonObjPersonas = GetClonArrayObject(_objPersonas);
 
             MoverIndividuo();
-
-            return _clonObjPersonas;
-        }
-
-        public Persona[,] Process()
-        {
-            _clonObjPersonas = GetClonArrayObject(_objPersonas);
-
-            for (int x = 0; x < _longitud; x++)
-            {
-                for (int y = 0; y < _longitud; y++)
-                {
-                    if (_clonObjPersonas[x, y].Estado != EnumEstado.VACIO)
-                        ReglaEvolucion(x, y);
-                }
-            }
 
             return _clonObjPersonas;
         }
@@ -112,7 +98,9 @@ namespace AutomataCelular
                 }
             }
         }
+        #endregion
 
+        #region Creacion de clones
         private Persona[,] GetClonArrayObject(Persona[,] arrayOriginal)
         {
             Persona[,] arrayClonado = new Persona[_longitud, _longitud];
@@ -136,7 +124,9 @@ namespace AutomataCelular
 
             return objClonado;
         }
+        #endregion
 
+        #region Analisis de celulas vecinas
         private int AnalizarVecinasPorEstado(int x, int y, EnumEstado prmEstado)
         {
             int contadorPorEstado = 0;
@@ -271,6 +261,24 @@ namespace AutomataCelular
 
             return listResponse;
         }
+        #endregion
+
+        #region Evolución
+        public Persona[,] Process()
+        {
+            _clonObjPersonas = GetClonArrayObject(_objPersonas);
+
+            for (int x = 0; x < _longitud; x++)
+            {
+                for (int y = 0; y < _longitud; y++)
+                {
+                    if (_clonObjPersonas[x, y].Estado != EnumEstado.VACIO)
+                        ReglaEvolucion(x, y);
+                }
+            }
+
+            return _clonObjPersonas;
+        }
 
         private void ReglaEvolucion(int x, int y)
         {
@@ -288,7 +296,7 @@ namespace AutomataCelular
                     var vlrProbabilidadUCI = double.Parse(randomUCI.ToString());
 
 
-                    if (_objPersonas[x, y].NumDiasContagiado >= 7)
+                    if (_objPersonas[x, y].NumDiasContagiado >= CONST_NUM_DIAS_UCI)
                     {
                         var formProbabilidadHospitalizacion = FormAutomata.Instance._probabilidadHospitalizacion;
 
@@ -349,5 +357,6 @@ namespace AutomataCelular
 
             _clonObjPersonas[x, y].Estado = newStatus;
         }
+        #endregion
     }
 }
